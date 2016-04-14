@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.3"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -12,7 +12,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.lucilu.baseapp"
+        applicationId "com.lucilu.rxdynamicsearch"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
@@ -37,34 +37,17 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.2.0'
-    compile 'com.android.support:design:23.2.0'
-
-    // Networking
-    compile 'com.squareup.okhttp:okhttp:2.5.0'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.squareup.retrofit:retrofit:1.9.0'
+    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.android.support:support-annotations:23.3.0'
 
     // RxJava
     compile 'io.reactivex:rxjava:1.1.0'
     compile 'io.reactivex:rxandroid:1.1.0'
 
-    // Google GSON library
-    compile 'com.google.code.gson:gson:2.5'
-
-    // AutoValue
-    apt 'com.google.auto.value:auto-value:1.1'
-    provided 'com.google.auto.value:auto-value:1.1'
-
-    // Stetho - core
-    debugCompile('com.facebook.stetho:stetho:1.3.0')
-
-    // Stetho - network debugging
-    debugCompile('com.facebook.stetho:stetho-okhttp:1.3.0')
-
-    // Memory leak detector
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3.1'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3.1'
+    // Dagger 2
+    compile 'com.google.dagger:dagger:2.2'
+    apt 'com.google.dagger:dagger-compiler:2.2'
+    provided 'org.glassfish:javax.annotation:10.0-b28'
 
     // Logging
     compile 'com.jakewharton.timber:timber:4.1.0'

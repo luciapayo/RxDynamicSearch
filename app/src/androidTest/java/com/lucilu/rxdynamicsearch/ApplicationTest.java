@@ -1,4 +1,4 @@
-package com.lucilu.baseapp;
+package com.lucilu.rxdynamicsearch;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

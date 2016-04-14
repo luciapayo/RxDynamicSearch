@@ -1,7 +1,7 @@
-package com.lucilu.baseapp.utils;
+package com.lucilu.rxdynamicsearch.utils;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 /**
  * Static class that provides helper methods to check preconditions.
@@ -19,7 +19,7 @@ public class Preconditions {
      * @return the non-null reference
      * @throws NullPointerException if {@code reference} is null
      */
-    @Nonnull
+    @NonNull
     public static <T> T get(@Nullable final T reference) {
         if (reference == null) {
             throw new NullPointerException("Assertion for a nonnull object failed.");

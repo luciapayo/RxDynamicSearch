@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RxDynamicSearch</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="search_box_hint">Country name</string>
 </resources>

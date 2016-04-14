@@ -25,6 +25,7 @@ public class SearchService {
     private Observable<String> defineSearchQueryStream() {
         return Observable
                 .merge(defineDynamicQueryStream(), defineSubmittedQueryStream())
+                .map(String::trim)
                 .startWith(EMPTY_QUERY)
                 .distinctUntilChanged();
     }
@@ -33,13 +34,11 @@ public class SearchService {
         return dynamicQueryStream
                 .debounce(DYNAMIC_SEARCH_DELAY_MILLIS,
                           TimeUnit.MILLISECONDS,
-                          Schedulers.computation())
-                .map(String::trim);
+                          Schedulers.computation());
     }
 
     private Observable<String> defineSubmittedQueryStream() {
-        return submittedQueryStream
-                .map(String::trim);
+        return submittedQueryStream;
     }
 
     public void queryTextChanged(@NonNull final String query) {

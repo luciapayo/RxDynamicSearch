@@ -12,9 +12,6 @@ import static com.lucilu.rxdynamicsearch.Constants.DYNAMIC_SEARCH_DELAY_MILLIS;
 import static com.lucilu.rxdynamicsearch.Constants.EMPTY_QUERY;
 import static com.lucilu.rxdynamicsearch.utils.Preconditions.get;
 
-/**
- * Created by lucia on 04.04.16.
- */
 public class SearchService {
 
     private final PublishSubject<String> dynamicQueryStream = PublishSubject.create();

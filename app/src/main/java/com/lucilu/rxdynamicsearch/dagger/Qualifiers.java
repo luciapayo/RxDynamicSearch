@@ -8,7 +8,7 @@ import javax.inject.Qualifier;
 /**
  * Dagger qualifiers.
  */
-public class Qualifiers {
+public final class Qualifiers {
 
     @Qualifier
     @Retention(RetentionPolicy.SOURCE)

@@ -57,4 +57,8 @@ dependencies {
 
     // Logging
     compile 'com.jakewharton.timber:timber:4.1.0'
+
+    // LightCycle
+    compile 'com.soundcloud.lightcycle:lightcycle-lib:1.0.0'
+    apt 'com.soundcloud.lightcycle:lightcycle-processor:1.0.0'
 }

@@ -14,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.widget.SearchView;
 
 import rx.Observable;
+import rx.subscriptions.CompositeSubscription;
 
 import static com.lucilu.rxdynamicsearch.utils.Preconditions.get;
 import static com.lucilu.rxdynamicsearch.utils.ViewUtils.find;
@@ -29,8 +30,17 @@ public final class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         mSearchView = find(this, R.id.searchView_countryName);
+    }
+
+    @Override
+    protected void setActivityContentView() {
+        setContentView(R.layout.activity_main);
+    }
+
+    @Override
+    protected void onBind(@NonNull final CompositeSubscription subscription) {
+
     }
 
     @Override

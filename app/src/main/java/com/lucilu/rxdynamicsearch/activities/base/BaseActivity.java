@@ -1,15 +1,19 @@
 package com.lucilu.rxdynamicsearch.activities.base;
 
 import com.lucilu.rxdynamicsearch.IInjectable;
+import com.soundcloud.lightcycle.LightCycleAppCompatActivity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+
+import rx.subscriptions.CompositeSubscription;
 
 /**
  *
  */
-public abstract class BaseActivity extends AppCompatActivity implements IInjectable {
+public abstract class BaseActivity extends LightCycleAppCompatActivity<BaseActivity>
+        implements IInjectable {
 
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
@@ -17,4 +21,6 @@ public abstract class BaseActivity extends AppCompatActivity implements IInjecta
 
         onInject();
     }
+
+    protected abstract void onBind(@NonNull final CompositeSubscription subscription);
 }

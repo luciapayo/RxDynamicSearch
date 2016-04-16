@@ -11,17 +11,19 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
+import static com.lucilu.rxdynamicsearch.utils.Preconditions.get;
+
 /**
  * Provides application object and application context.
  */
 @Module
-public class AppModule {
+public final class AppModule {
 
     @NonNull
     private final Application mApplication;
 
     public AppModule(@NonNull final Application app) {
-        mApplication = app;
+        mApplication = get(app);
     }
 
     @Singleton

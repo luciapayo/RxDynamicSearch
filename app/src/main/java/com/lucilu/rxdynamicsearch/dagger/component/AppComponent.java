@@ -1,8 +1,10 @@
 package com.lucilu.rxdynamicsearch.dagger.component;
 
 import com.lucilu.rxdynamicsearch.SearchApplication;
+import com.lucilu.rxdynamicsearch.dagger.module.ActivityModule;
 import com.lucilu.rxdynamicsearch.dagger.module.AppModule;
 import com.lucilu.rxdynamicsearch.dagger.module.InstrumentationModule;
+import com.lucilu.rxdynamicsearch.dagger.module.MainActivityModule;
 
 import javax.inject.Singleton;
 
@@ -16,6 +18,9 @@ import dagger.Component;
 public interface AppComponent {
 
     void inject(SearchApplication app);
+
+    MainActivityComponent plusMainActivity(ActivityModule activityModule,
+                                           MainActivityModule mainActivityModule);
 
     class Initializer {
 

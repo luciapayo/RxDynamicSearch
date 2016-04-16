@@ -12,7 +12,7 @@ import timber.log.Timber;
 
 import static com.lucilu.rxdynamicsearch.utils.Preconditions.get;
 
-public class SearchApplication extends Application {
+public final class SearchApplication extends Application {
 
     @Inject
     Timber.Tree mTimberTree;

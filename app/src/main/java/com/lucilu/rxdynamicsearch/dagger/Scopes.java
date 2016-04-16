@@ -9,7 +9,7 @@ import javax.inject.Singleton;
 /**
  * Definition of dagger scopes besides {@link Singleton} that is available by default.
  */
-public class Scopes {
+public final class Scopes {
 
     @Scope
     @Retention(RetentionPolicy.SOURCE)

@@ -1,7 +1,7 @@
 package com.lucilu.rxdynamicsearch.dagger.module;
 
-import com.lucilu.rxdynamicsearch.activities.MainActivity;
-import com.lucilu.rxdynamicsearch.dagger.Scopes.ActivityScope;
+import com.lucilu.rxdynamicsearch.dagger.Scopes.FragmentScope;
+import com.lucilu.rxdynamicsearch.fragments.SearchFragment;
 
 import android.support.annotation.NonNull;
 
@@ -12,19 +12,19 @@ import rx.Observable;
 import static com.lucilu.rxdynamicsearch.utils.Preconditions.get;
 
 /**
- * Provides {@link MainActivity} specific objects.
+ * Provides {@link SearchFragment} specific objects.
  */
 @Module
-public final class MainActivityModule {
+public final class SearchFragmentModule {
 
     @NonNull
     private final Observable<CharSequence> mQueryStream;
 
-    public MainActivityModule(@NonNull final Observable<CharSequence> queryStream) {
+    public SearchFragmentModule(@NonNull final Observable<CharSequence> queryStream) {
         mQueryStream = get(queryStream);
     }
 
-    @ActivityScope
+    @FragmentScope
     @Provides
     Observable<CharSequence> providesQueryStream() {
         return mQueryStream;

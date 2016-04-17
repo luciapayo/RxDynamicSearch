@@ -15,4 +15,9 @@ public final class Scopes {
     @Retention(RetentionPolicy.SOURCE)
     public @interface ActivityScope {
     }
+
+    @Scope
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface FragmentScope {
+    }
 }

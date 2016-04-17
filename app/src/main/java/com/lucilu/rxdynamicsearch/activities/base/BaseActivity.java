@@ -10,10 +10,10 @@ import android.support.annotation.Nullable;
 import rx.subscriptions.CompositeSubscription;
 
 /**
- *
+ * This base activity provides the common functionality to all activities in the app.
  */
-public abstract class BaseActivity extends LightCycleAppCompatActivity<BaseActivity>
-        implements IInjectable {
+public abstract class BaseActivity
+        extends LightCycleAppCompatActivity<BaseActivity> implements IInjectable {
 
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {

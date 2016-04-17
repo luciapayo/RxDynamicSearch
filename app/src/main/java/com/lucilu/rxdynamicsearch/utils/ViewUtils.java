@@ -16,4 +16,10 @@ public final class ViewUtils {
 
         return (T) get(activity.findViewById(id));
     }
+
+    @SuppressWarnings("unchecked")
+    @NonNull
+    public static <T extends View> T find(@NonNull final View view, int id) {
+        return (T) get(view.findViewById(id));
+    }
 }

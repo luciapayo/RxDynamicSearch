@@ -1,6 +1,5 @@
 package com.lucilu.rxdynamicsearch.activities;
 
-import com.lucilu.baseapp.R;
 import com.lucilu.rxdynamicsearch.SearchApplication;
 import com.lucilu.rxdynamicsearch.activities.base.BaseActivity;
 import com.lucilu.rxdynamicsearch.dagger.component.MainActivityComponent;

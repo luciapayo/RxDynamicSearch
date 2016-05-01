@@ -13,7 +13,7 @@ import android.content.Context;
 import dagger.Module;
 import dagger.Provides;
 
-@Module
+@Module(includes = DataModule.class)
 public final class ProviderModule {
 
     @Provides

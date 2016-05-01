@@ -1,9 +1,11 @@
 package com.lucilu.rxdynamicsearch.fragments.base;
 
 import com.lucilu.rxdynamicsearch.IInjectable;
+import com.lucilu.rxdynamicsearch.viewmodel.base.ViewModel;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import rx.subscriptions.CompositeSubscription;
@@ -14,11 +16,22 @@ import rx.subscriptions.CompositeSubscription;
 public abstract class BaseFragment extends Fragment implements IInjectable {
 
     @Override
-    public void onCreate(final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onActivityCreated(@Nullable final Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
         onInject();
+
+        getViewModel().subscribeToDataStore();
+    }
+
+    @Override
+    public void onDestroyView() {
+        getViewModel().dispose();
+        super.onDestroyView();
     }
 
     protected abstract void onBind(@NonNull final CompositeSubscription subscription);
+
+    @NonNull
+    protected abstract ViewModel getViewModel();
 }

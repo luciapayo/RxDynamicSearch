@@ -1,18 +1,17 @@
 package com.lucilu.rxdynamicsearch.fragments.base;
 
 import com.lucilu.rxdynamicsearch.IInjectable;
-import com.soundcloud.lightcycle.LightCycleSupportFragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 
 import rx.subscriptions.CompositeSubscription;
 
 /**
  * This base fragment provides the common functionality to all fragments in the app.
  */
-public abstract class BaseFragment
-        extends LightCycleSupportFragment<BaseFragment> implements IInjectable {
+public abstract class BaseFragment extends Fragment implements IInjectable {
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {

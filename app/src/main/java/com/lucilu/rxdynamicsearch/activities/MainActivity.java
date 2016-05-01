@@ -6,6 +6,7 @@ import com.lucilu.rxdynamicsearch.activities.base.BaseActivity;
 import com.lucilu.rxdynamicsearch.dagger.component.MainActivityComponent;
 import com.lucilu.rxdynamicsearch.dagger.module.ActivityModule;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -19,7 +20,8 @@ public final class MainActivity extends BaseActivity {
     private MainActivityComponent mComponent;
 
     @Override
-    protected void setActivityContentView() {
+    protected void onCreate(@Nullable final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
 

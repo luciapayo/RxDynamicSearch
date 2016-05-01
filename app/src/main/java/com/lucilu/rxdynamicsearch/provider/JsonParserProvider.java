@@ -3,7 +3,7 @@ package com.lucilu.rxdynamicsearch.provider;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import com.lucilu.baseapp.R;
+import com.lucilu.rxdynamicsearch.R;
 import com.lucilu.rxdynamicsearch.data.pojo.Country;
 import com.lucilu.rxdynamicsearch.provider.base.IJsonParserProvider;
 import com.lucilu.rxdynamicsearch.provider.base.IResourceProvider;

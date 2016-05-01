@@ -1,13 +1,10 @@
 package com.lucilu.rxdynamicsearch.activities;
 
-import com.lucilu.baseapp.R;
 import com.lucilu.rxdynamicsearch.SearchApplication;
 import com.lucilu.rxdynamicsearch.activities.base.BaseActivity;
 import com.lucilu.rxdynamicsearch.dagger.component.MainActivityComponent;
 import com.lucilu.rxdynamicsearch.dagger.module.ActivityModule;
-import com.lucilu.rxdynamicsearch.fragments.SearchFragment;
 
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -19,12 +16,6 @@ public final class MainActivity extends BaseActivity {
 
     @Nullable
     private MainActivityComponent mComponent;
-
-    @Override
-    protected void onCreate(@Nullable final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        displayFragment(R.id.content_main, SearchFragment.getInstance(), "SearchFragment");
-    }
 
     @Override
     protected void onBind(@NonNull final CompositeSubscription subscription) {

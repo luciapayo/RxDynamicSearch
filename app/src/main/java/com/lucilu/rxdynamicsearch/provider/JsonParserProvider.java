@@ -1,6 +1,7 @@
 package com.lucilu.rxdynamicsearch.provider;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
 import com.lucilu.rxdynamicsearch.R;
@@ -38,5 +39,25 @@ public final class JsonParserProvider implements IJsonParserProvider {
         Reader reader = new InputStreamReader(mResourceProvider.openRawResource(R.raw.countries));
 
         return mGson.fromJson(reader, listType);
+    }
+
+    public <T> Option<List<T>> parseListFromJson(String json) {
+        Type listType = new TypeToken<List<T>>() {}.getType();
+
+        try {
+            mGson.fromJson(json, listType);
+        } catch (JsonSyntaxException e) {
+            // LOG
+            return Option.NONE;
+        }
+    }
+
+    public <T> Option<T> parseFromJson(String string, Class<T> classOfT) {
+        try {
+            mGson.fromJson(json, classOfT);
+        } catch (JsonSyntaxException e) {
+            // LOG
+            return Option.NONE;
+        }
     }
 }

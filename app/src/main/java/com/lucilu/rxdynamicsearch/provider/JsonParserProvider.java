@@ -69,4 +69,24 @@ public final class JsonParserProvider implements IJsonParserProvider {
             return none();
         }
     }
+
+    public <T> Option<List<T>> parseListFromJson(String json) {
+        Type listType = new TypeToken<List<T>>() {}.getType();
+
+        try {
+            mGson.fromJson(json, listType);
+        } catch (JsonSyntaxException e) {
+            // LOG
+            return Option.NONE;
+        }
+    }
+
+    public <T> Option<T> parseFromJson(String string, Class<T> classOfT) {
+        try {
+            mGson.fromJson(json, classOfT);
+        } catch (JsonSyntaxException e) {
+            // LOG
+            return Option.NONE;
+        }
+    }
 }

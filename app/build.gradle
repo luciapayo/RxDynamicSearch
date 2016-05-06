@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId "com.lucilu.rxdynamicsearch"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -60,4 +60,7 @@ dependencies {
 
     // Google GSON library
     compile 'com.google.code.gson:gson:2.6.2'
+
+    //Option
+    compile project(":JUtils")
 }

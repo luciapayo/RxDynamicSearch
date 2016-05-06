@@ -6,7 +6,7 @@ import com.google.gson.reflect.TypeToken;
 
 import com.lucilu.rxdynamicsearch.provider.base.IJsonParserProvider;
 import com.lucilu.rxdynamicsearch.provider.base.IResourceProvider;
-import com.lucilu.rxdynamicsearch.utils.option.Option;
+
 
 import android.support.annotation.NonNull;
 
@@ -14,11 +14,12 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.List;
 
+import polanski.option.Option;
 import timber.log.Timber;
 
 import static com.lucilu.rxdynamicsearch.utils.Preconditions.get;
-import static com.lucilu.rxdynamicsearch.utils.option.Option.none;
-import static com.lucilu.rxdynamicsearch.utils.option.Option.ofObj;
+import static polanski.option.Option.none;
+import static polanski.option.Option.ofObj;
 
 public final class JsonParserProvider implements IJsonParserProvider {
 

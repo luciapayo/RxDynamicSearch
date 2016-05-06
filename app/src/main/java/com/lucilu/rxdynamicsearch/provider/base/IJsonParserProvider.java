@@ -1,10 +1,10 @@
 package com.lucilu.rxdynamicsearch.provider.base;
 
-import com.lucilu.rxdynamicsearch.utils.option.Option;
-
 import android.support.annotation.NonNull;
 
 import java.util.List;
+
+import polanski.option.Option;
 
 /**
  * Parsing from json files.

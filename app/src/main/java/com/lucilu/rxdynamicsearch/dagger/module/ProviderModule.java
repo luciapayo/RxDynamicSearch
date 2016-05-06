@@ -9,6 +9,7 @@ import com.lucilu.rxdynamicsearch.provider.base.IJsonParserProvider;
 import com.lucilu.rxdynamicsearch.provider.base.IResourceProvider;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import dagger.Module;
 import dagger.Provides;
@@ -22,8 +23,8 @@ public final class ProviderModule {
     }
 
     @Provides
-    IJsonParserProvider provideJsonParserProvider(final Gson gson,
-                                                  final IResourceProvider resourceProvider) {
+    IJsonParserProvider provideJsonParserProvider(@NonNull final Gson gson,
+                                                  @NonNull final IResourceProvider resourceProvider) {
         return new JsonParserProvider(gson, resourceProvider);
     }
 }

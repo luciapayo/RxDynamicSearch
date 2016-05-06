@@ -1,8 +1,11 @@
 package com.lucilu.rxdynamicsearch.repository;
 
+import com.lucilu.rxdynamicsearch.R;
 import com.lucilu.rxdynamicsearch.data.pojo.Country;
 import com.lucilu.rxdynamicsearch.provider.base.IJsonParserProvider;
+import com.lucilu.rxdynamicsearch.provider.base.IResourceProvider;
 import com.lucilu.rxdynamicsearch.repository.base.ICountryRepository;
+import com.lucilu.rxdynamicsearch.utils.option.Option;
 
 import android.support.annotation.NonNull;
 
@@ -18,8 +21,13 @@ public class CountryRepository implements ICountryRepository {
     @NonNull
     private final IJsonParserProvider mJsonParserProvider;
 
-    public CountryRepository(@NonNull final IJsonParserProvider jsonParserProvider) {
+    @NonNull
+    private final IResourceProvider mResourceProvider;
+
+    public CountryRepository(@NonNull final IJsonParserProvider jsonParserProvider,
+                             @NonNull final IResourceProvider resourceProvider) {
         mJsonParserProvider = get(jsonParserProvider);
+        mResourceProvider = get(resourceProvider);
     }
 
     @NonNull
@@ -27,7 +35,9 @@ public class CountryRepository implements ICountryRepository {
         return Observable.create(new Observable.OnSubscribe<List<Country>>() {
             @Override
             public void call(final Subscriber<? super List<Country>> subscriber) {
-                List<Country> countries = mJsonParserProvider.parseListOfCountriesFromJson();
+                Option<List<Country>>
+                        countries = mJsonParserProvider.parseListFromRawJsonFile(R.raw.countries);
+
                 subscriber.onNext(countries);
                 subscriber.onCompleted();
             }

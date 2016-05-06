@@ -1,1 +1,3 @@
 include ':app'
+include ':JUtils'
+project(':JUtils').projectDir = new File('libs/JUtilities/JUtils/library')

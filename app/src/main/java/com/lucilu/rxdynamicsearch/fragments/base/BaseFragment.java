@@ -15,6 +15,9 @@ import rx.subscriptions.CompositeSubscription;
  */
 public abstract class BaseFragment extends Fragment implements IInjectable {
 
+    @NonNull
+    private final CompositeSubscription mSubscription = new CompositeSubscription();
+
     @Override
     public void onActivityCreated(@Nullable final Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -22,6 +25,18 @@ public abstract class BaseFragment extends Fragment implements IInjectable {
         onInject();
 
         getViewModel().subscribeToDataStore();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        onBind(mSubscription);
+    }
+
+    @Override
+    public void onPause() {
+        mSubscription.clear();
+        super.onPause();
     }
 
     @Override

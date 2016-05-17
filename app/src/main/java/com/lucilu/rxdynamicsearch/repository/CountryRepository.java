@@ -5,12 +5,12 @@ import com.lucilu.rxdynamicsearch.data.pojo.Country;
 import com.lucilu.rxdynamicsearch.provider.base.IJsonParserProvider;
 import com.lucilu.rxdynamicsearch.provider.base.IResourceProvider;
 import com.lucilu.rxdynamicsearch.repository.base.ICountryRepository;
-import com.lucilu.rxdynamicsearch.utils.option.Option;
 
 import android.support.annotation.NonNull;
 
 import java.util.List;
 
+import polanski.option.Option;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -31,10 +31,10 @@ public class CountryRepository implements ICountryRepository {
     }
 
     @NonNull
-    public Observable<List<Country>> getAllCountries() {
-        return Observable.create(new Observable.OnSubscribe<List<Country>>() {
+    public Observable<Option<List<Country>>> getAllCountries() {
+        return Observable.create(new Observable.OnSubscribe<Option<List<Country>>>() {
             @Override
-            public void call(final Subscriber<? super List<Country>> subscriber) {
+            public void call(final Subscriber<? super Option<List<Country>>> subscriber) {
                 Option<List<Country>>
                         countries = mJsonParserProvider.parseListFromRawJsonFile(R.raw.countries);
 

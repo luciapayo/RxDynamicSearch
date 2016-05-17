@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
+import polanski.option.Option;
 import rx.Observable;
 
 /**
@@ -19,5 +20,5 @@ public interface ICountryRepository {
      * @return list with all the countries.
      */
     @NonNull
-    Observable<List<Country>> getAllCountries();
+    Observable<Option<List<Country>>> getAllCountries();
 }

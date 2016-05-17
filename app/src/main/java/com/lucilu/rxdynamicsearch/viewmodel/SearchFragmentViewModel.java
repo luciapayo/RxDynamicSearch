@@ -12,6 +12,7 @@ import rx.Observable;
 import rx.subscriptions.CompositeSubscription;
 import timber.log.Timber;
 
+import static com.lucilu.rxdynamicsearch.rx.Transformers.choose;
 import static com.lucilu.rxdynamicsearch.utils.Preconditions.get;
 
 @FragmentScope
@@ -33,6 +34,7 @@ public final class SearchFragmentViewModel extends ViewModel {
     @Override
     protected void subscribeToData(@NonNull final CompositeSubscription s) {
         s.add(mCountryRepository.getAllCountries()
+                                .compose(choose())
                                 .flatMap(Observable::from)
                                 .doOnNext(country -> Timber.d("%s", country))
                                 .subscribe());

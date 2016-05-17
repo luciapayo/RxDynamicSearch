@@ -1,5 +1,7 @@
 package com.lucilu.rxdynamicsearch.data.pojo;
 
+import com.google.gson.annotations.SerializedName;
+
 import android.support.annotation.NonNull;
 
 import static com.lucilu.rxdynamicsearch.utils.Preconditions.get;
@@ -7,12 +9,15 @@ import static com.lucilu.rxdynamicsearch.utils.Preconditions.get;
 public final class Country {
 
     @NonNull
+    @SerializedName("name")
     private final String mName;
 
     @NonNull
+    @SerializedName("capital")
     private final String mCapital;
 
     @NonNull
+    @SerializedName("region")
     private final String mRegion;
 
     public Country(@NonNull final String name,

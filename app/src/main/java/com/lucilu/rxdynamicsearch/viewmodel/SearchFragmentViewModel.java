@@ -37,6 +37,7 @@ public final class SearchFragmentViewModel extends ViewModel {
                                 .compose(choose())
                                 .flatMap(Observable::from)
                                 .doOnNext(country -> Timber.d("%s", country))
-                                .subscribe());
+                                .subscribe(country -> Timber.d("%s", country),
+                                           error -> Timber.e(error, "ERROR")));
     }
 }

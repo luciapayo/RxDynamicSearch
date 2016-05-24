@@ -2,11 +2,10 @@ package com.lucilu.rxdynamicsearch.provider;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
 
 import com.lucilu.rxdynamicsearch.provider.base.IJsonParserProvider;
 import com.lucilu.rxdynamicsearch.provider.base.IResourceProvider;
-
+import com.lucilu.rxdynamicsearch.utils.Preconditions;
 
 import android.support.annotation.NonNull;
 
@@ -35,37 +34,19 @@ public final class JsonParserProvider implements IJsonParserProvider {
         mResourceProvider = get(resourceProvider);
     }
 
-    public <T> Option<List<T>> parseListFromJson(@NonNull final String json) {
-        Type listType = new TypeToken<List<T>>() {}.getType();
-
-        try {
-            return ofObj(mGson.fromJson(json, listType));
-        } catch (JsonSyntaxException e) {
-            Timber.e(e, "Error parsing from json %s", listType);
-            return none();
-        }
-    }
-
     @Override
-    public <T> Option<List<T>> parseListFromRawJsonFile(final int rawResourceId) {
-        Type listType = new TypeToken<List<T>>() {}.getType();
+    public <T> Option<List<T>> parseListFromRawJsonFile(final int rawResourceId,
+                                                        @NonNull final Class<T> classOfType) {
+        Preconditions.assertWorkerThread();
+
+        Type listType = new ListOfJsonType<>(classOfType);
         InputStreamReader isr = new InputStreamReader(
                 mResourceProvider.openRawResource(rawResourceId));
-
         try {
-            return ofObj(mGson.fromJson(isr, listType));
+            List<T> list = mGson.fromJson(isr, listType);
+            return ofObj(list);
         } catch (JsonSyntaxException e) {
             Timber.e(e, "Error parsing from json %s", listType);
-            return none();
-        }
-    }
-
-    public <T> Option<T> parseFromJson(@NonNull final String json,
-                                       @NonNull final Class<T> classOfT) {
-        try {
-            return ofObj(mGson.fromJson(json, classOfT));
-        } catch (JsonSyntaxException e) {
-            Timber.e(e, "Error parsing from json %s", classOfT);
             return none();
         }
     }

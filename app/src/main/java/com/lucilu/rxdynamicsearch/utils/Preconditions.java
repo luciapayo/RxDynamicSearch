@@ -1,7 +1,10 @@
 package com.lucilu.rxdynamicsearch.utils;
 
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
+import java.util.Objects;
 
 /**
  * Static class that provides helper methods to check preconditions.
@@ -40,5 +43,29 @@ public final class Preconditions {
             throw new NullPointerException(get(errorMessage));
         }
         return reference;
+    }
+
+    /**
+     * Asserts that the current thread is a worker thread.
+     */
+    public static void assertWorkerThread() {
+        if (isMainThread()) {
+            throw new IllegalStateException(
+                    "This task must be run on a worker thread and not on the Main thread.");
+        }
+    }
+
+    /**
+     * Asserts that the current thread is the Main Thread.
+     */
+    public static void assertUiThread() {
+        if (!isMainThread()) {
+            throw new IllegalStateException(
+                    "This task must be run on the Main thread and not on a worker thread.");
+        }
+    }
+
+    private static boolean isMainThread() {
+        return Objects.equals(Looper.getMainLooper(), Looper.myLooper());
     }
 }

@@ -62,5 +62,5 @@ dependencies {
     compile 'com.google.code.gson:gson:2.6.2'
 
     //Option
-    compile project(":JUtils")
+    compile 'com.github.tomaszpolanski:JUtilities:1.0'
 }

@@ -13,6 +13,7 @@ import com.lucilu.rxdynamicsearch.viewmodel.base.ViewModel;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,9 @@ public final class SearchFragment extends BaseFragment {
     private SearchView mSearchView;
 
     @Nullable
+    private RecyclerView mCountryList;
+
+    @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater,
                              @Nullable final ViewGroup container,
@@ -47,6 +51,7 @@ public final class SearchFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
 
         mSearchView = ViewUtils.find(view, R.id.searchView_countryName);
+        mCountryList = ViewUtils.find(view, R.id.list_country);
     }
 
     @Override

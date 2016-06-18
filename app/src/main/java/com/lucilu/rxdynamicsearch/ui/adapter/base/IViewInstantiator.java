@@ -1,4 +1,4 @@
-package com.lucilu.rxdynamicsearch.ui.adapter;
+package com.lucilu.rxdynamicsearch.ui.adapter.base;
 
 import android.support.annotation.NonNull;
 import android.view.View;

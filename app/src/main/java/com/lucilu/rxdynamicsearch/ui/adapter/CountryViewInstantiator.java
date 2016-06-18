@@ -2,6 +2,7 @@ package com.lucilu.rxdynamicsearch.ui.adapter;
 
 import com.lucilu.rxdynamicsearch.R;
 import com.lucilu.rxdynamicsearch.data.pojo.Country;
+import com.lucilu.rxdynamicsearch.ui.adapter.base.IViewInstantiator;
 import com.lucilu.rxdynamicsearch.utils.ViewUtils;
 
 import android.content.Context;

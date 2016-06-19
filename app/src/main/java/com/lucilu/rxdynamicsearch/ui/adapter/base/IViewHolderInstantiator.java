@@ -15,5 +15,4 @@ public interface IViewHolderInstantiator<T> {
      */
     @NonNull
     ViewHolder createViewHolder(@NonNull final T itemType);
-
 }

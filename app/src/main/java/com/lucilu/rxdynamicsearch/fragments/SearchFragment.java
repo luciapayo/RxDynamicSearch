@@ -1,6 +1,5 @@
 package com.lucilu.rxdynamicsearch.fragments;
 
-import com.jakewharton.rxbinding.widget.RxSearchView;
 import com.lucilu.rxdynamicsearch.R;
 import com.lucilu.rxdynamicsearch.activities.MainActivity;
 import com.lucilu.rxdynamicsearch.dagger.component.SearchFragmentComponent;
@@ -78,6 +77,6 @@ public final class SearchFragment extends BaseFragment {
     }
 
     private Observable<CharSequence> getQueryStream() {
-        return RxSearchView.queryTextChanges(get(mSearchView));
+        return Observable.never();
     }
 }

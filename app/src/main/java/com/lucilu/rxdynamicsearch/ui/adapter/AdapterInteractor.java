@@ -1,7 +1,7 @@
 package com.lucilu.rxdynamicsearch.ui.adapter;
 
 import com.lucilu.rxdynamicsearch.ui.adapter.base.IAdapterInteractor;
-import com.lucilu.rxdynamicsearch.utils.ListUtils;
+import com.lucilu.rxdynamicsearch.utils.CollectionUtils;
 
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
@@ -34,7 +34,7 @@ public class AdapterInteractor<T> implements IAdapterInteractor<T> {
 
     @Override
     public boolean update(@NonNull final Collection<T> items) {
-        boolean changed = !ListUtils.areEqual(mModels, items);
+        boolean changed = !CollectionUtils.areEqual(mModels, items);
 
         if (changed) {
             mModels.clear();

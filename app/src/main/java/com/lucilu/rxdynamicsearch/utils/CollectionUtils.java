@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import java.util.Collection;
 import java.util.Iterator;
 
-public final class ListUtils {
+public final class CollectionUtils {
 
     /**
      * Verifies if the content of the collections is the same.

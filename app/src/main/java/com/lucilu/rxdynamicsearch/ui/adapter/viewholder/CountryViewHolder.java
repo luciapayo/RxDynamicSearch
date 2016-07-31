@@ -10,7 +10,7 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
-import static com.lucilu.rxdynamicsearch.viewmodel.pojo.ListItem.Type.COUNTRY;
+import static com.lucilu.rxdynamicsearch.Constants.ListItem.COUNTRY;
 
 public final class CountryViewHolder extends ListItemViewHolder {
 

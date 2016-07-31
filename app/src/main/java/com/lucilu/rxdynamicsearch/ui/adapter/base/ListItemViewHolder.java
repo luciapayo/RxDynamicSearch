@@ -17,7 +17,7 @@ public abstract class ListItemViewHolder extends ViewHolder {
     protected abstract void bindToListItem(@NonNull final ListItem item);
 
     protected static void assertListItemType(@NonNull final ListItem item,
-                                             @NonNull final ListItem.Type type) {
+                                             final int type) {
         checkArgument(item.type() == type, "The item type " + item.type()
                                            + " is not the expected type " + type);
     }

@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView.ViewHolder;
 /**
  * Instantiates a {@link ViewHolder} based on the type.
  */
-public interface IViewHolderInstantiator<T> {
+public interface IViewHolderFactory {
 
     /**
      * Creates a {@link ViewHolder} for the passed type
@@ -14,5 +14,5 @@ public interface IViewHolderInstantiator<T> {
      * @return the newly created {@link ViewHolder}
      */
     @NonNull
-    ViewHolder createViewHolder(@NonNull final T itemType);
+    ViewHolder createViewHolder(final int itemType);
 }

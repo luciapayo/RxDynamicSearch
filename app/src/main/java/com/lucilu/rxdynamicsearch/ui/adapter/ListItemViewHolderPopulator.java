@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView.ViewHolder;
 
 import polanski.option.Option;
 
+import static com.lucilu.rxdynamicsearch.Constants.ListItem.COUNTRY;
+
 public final class ListItemViewHolderPopulator implements IViewHolderPopulator<ListItem> {
 
     @Override

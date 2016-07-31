@@ -12,7 +12,7 @@ import java.util.List;
 
 import polanski.option.Option;
 
-import static com.google.common.base.Preconditions.checkArgument;
+import static com.lucilu.rxdynamicsearch.utils.Preconditions.checkArgument;
 import static polanski.option.Option.ofObj;
 
 /**

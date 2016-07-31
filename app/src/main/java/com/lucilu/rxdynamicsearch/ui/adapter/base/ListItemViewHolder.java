@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.View;
 
-import static com.google.common.base.Preconditions.checkArgument;
+import static com.lucilu.rxdynamicsearch.utils.Preconditions.checkArgument;
 
 public abstract class ListItemViewHolder extends ViewHolder {
 

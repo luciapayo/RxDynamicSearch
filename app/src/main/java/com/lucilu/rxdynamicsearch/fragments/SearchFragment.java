@@ -13,6 +13,7 @@ import com.lucilu.rxdynamicsearch.viewmodel.base.ViewModel;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,10 @@ import android.widget.SearchView;
 import javax.inject.Inject;
 
 import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
+import timber.log.Timber;
 
 import static com.lucilu.rxdynamicsearch.utils.Preconditions.get;
 
@@ -59,8 +63,20 @@ public final class SearchFragment extends BaseFragment {
     }
 
     @Override
-    protected void onBind(@NonNull final CompositeSubscription subscription) {
+    public void onActivityCreated(@Nullable final Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
+        get(mCountryList).setAdapter(mAdapter);
+        get(mCountryList).setLayoutManager(new LinearLayoutManager(getActivity()));
+    }
+
+    @Override
+    protected void onBind(@NonNull final CompositeSubscription s) {
+        s.add(get(mViewModel).getListItemStream()
+                             .subscribeOn(Schedulers.computation())
+                             .observeOn(AndroidSchedulers.mainThread())
+                             .subscribe(get(mAdapter)::update,
+                                        e -> Timber.e(e, "Error updating adapter with model")));
     }
 
     @NonNull

@@ -46,6 +46,19 @@ public final class Preconditions {
     }
 
     /**
+     * Checks the truth of an expression for an argument.
+     *
+     * @param expression a boolean expression
+     * @param errorMessage message used if the check fails
+     * @throws IllegalArgumentException if {@code expression} is false
+     */
+    public static void checkArgument(boolean expression, @NonNull final String errorMessage) {
+        if (!expression) {
+            throw new IllegalArgumentException(get(errorMessage));
+        }
+    }
+
+    /**
      * Asserts that the current thread is a worker thread.
      */
     public static void assertWorkerThread() {

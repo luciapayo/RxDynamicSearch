@@ -12,6 +12,7 @@ import java.util.List;
 import polanski.option.Option;
 import rx.Observable;
 import rx.Subscriber;
+import rx.schedulers.Schedulers;
 
 import static com.lucilu.rxdynamicsearch.utils.Preconditions.get;
 
@@ -36,6 +37,6 @@ public class CountryRepository implements ICountryRepository {
                 subscriber.onNext(countries);
                 subscriber.onCompleted();
             }
-        });
+        }).subscribeOn(Schedulers.computation());
     }
 }

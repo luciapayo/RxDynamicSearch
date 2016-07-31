@@ -1,5 +1,6 @@
 package com.lucilu.rxdynamicsearch.ui.adapter;
 
+import com.lucilu.rxdynamicsearch.dagger.Scopes.FragmentScope;
 import com.lucilu.rxdynamicsearch.ui.adapter.base.IAdapterInteractor;
 import com.lucilu.rxdynamicsearch.ui.adapter.base.IViewHolderFactory;
 import com.lucilu.rxdynamicsearch.ui.adapter.base.IViewHolderPopulator;
@@ -13,13 +14,18 @@ import android.view.ViewGroup;
 
 import java.util.Collection;
 
+import javax.inject.Inject;
+
 import polanski.option.Option;
 import polanski.option.function.Func0;
 
 import static com.lucilu.rxdynamicsearch.Constants.ListItem.INVALID_VIEW_TYPE;
-import static com.lucilu.rxdynamicsearch.utils.Preconditions.get;
 import static polanski.option.Option.ofObj;
 
+/**
+ * Implementation of {@link android.support.v7.widget.RecyclerView.Adapter} for {@link ListItem}.
+ */
+@FragmentScope
 public final class ListAdapter extends Adapter {
 
     @NonNull
@@ -31,12 +37,13 @@ public final class ListAdapter extends Adapter {
     @NonNull
     private final IViewHolderPopulator<ListItem> mPopulator;
 
+    @Inject
     public ListAdapter(@NonNull final IAdapterInteractor<ListItem> interactor,
                        @NonNull final IViewHolderFactory instantiator,
                        @NonNull final IViewHolderPopulator<ListItem> populator) {
-        mInteractor = get(interactor);
-        mInstantiator = get(instantiator);
-        mPopulator = get(populator);
+        mInteractor = interactor;
+        mInstantiator = instantiator;
+        mPopulator = populator;
     }
 
     @Override
@@ -68,7 +75,7 @@ public final class ListAdapter extends Adapter {
      * @param items collection to update the previous values
      */
     public void update(@NonNull final Collection<ListItem> items) {
-        applyChanges(() -> mInteractor.update(get(items)));
+        applyChanges(() -> mInteractor.update(items));
     }
 
     /**

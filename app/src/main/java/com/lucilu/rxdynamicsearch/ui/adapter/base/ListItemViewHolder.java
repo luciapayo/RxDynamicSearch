@@ -8,13 +8,13 @@ import android.view.View;
 
 import static com.lucilu.rxdynamicsearch.utils.Preconditions.checkArgument;
 
-public abstract class ListItemViewHolder extends ViewHolder {
+public abstract class ListItemViewHolder<T> extends ViewHolder {
 
     public ListItemViewHolder(final View itemView) {
         super(itemView);
     }
 
-    protected abstract void bindToListItem(@NonNull final ListItem item);
+    protected abstract void bindToListItem(@NonNull final ListItem<T> item);
 
     protected static void assertListItemType(@NonNull final ListItem item,
                                              final int type) {

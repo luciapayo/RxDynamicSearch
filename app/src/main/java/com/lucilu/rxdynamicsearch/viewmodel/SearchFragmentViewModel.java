@@ -51,8 +51,12 @@ public final class SearchFragmentViewModel extends ViewModel {
     @NonNull
     private Observable<List<ListItem>> transform(List<Country> countries) {
         return Observable.from(countries)
-                         .map(country -> Option.ofObj((Object) country))
-                         .map(option -> ListItem.builder().type(COUNTRY).model(option).build())
+                         .map(Option::ofObj)
+                         .map(this::toListItem)
                          .toList();
+    }
+
+    private ListItem toListItem(@NonNull final Option<Country> model) {
+        return ListItem.<Country>builder().type(COUNTRY).model(model).build();
     }
 }

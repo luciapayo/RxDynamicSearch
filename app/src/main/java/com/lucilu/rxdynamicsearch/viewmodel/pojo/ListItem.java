@@ -7,29 +7,29 @@ import android.support.annotation.NonNull;
 import polanski.option.Option;
 
 @AutoValue
-public abstract class ListItem {
+public abstract class ListItem<T> {
 
     public abstract int type();
 
     @NonNull
-    public abstract Option<Object> model();
+    public abstract Option<T> model();
 
     @SuppressWarnings("NullableProblems")
     @AutoValue.Builder
-    public abstract static class Builder {
+    public abstract static class Builder<T> {
 
         @NonNull
-        public abstract Builder type(@NonNull int type);
+        public abstract Builder<T> type(@NonNull int type);
 
         @NonNull
-        public abstract Builder model(@NonNull Option<Object> model);
+        public abstract Builder<T> model(@NonNull Option<T> model);
 
         @NonNull
-        public abstract ListItem build();
+        public abstract ListItem<T> build();
     }
 
     @NonNull
-    public static Builder builder() {
-        return new AutoValue_ListItem.Builder();
+    public static <T> Builder<T> builder() {
+        return new AutoValue_ListItem.Builder<>();
     }
 }

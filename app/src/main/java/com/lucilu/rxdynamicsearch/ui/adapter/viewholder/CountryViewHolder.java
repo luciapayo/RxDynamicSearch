@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import static com.lucilu.rxdynamicsearch.Constants.ListItem.COUNTRY;
 
-public final class CountryViewHolder extends ListItemViewHolder {
+public final class CountryViewHolder extends ListItemViewHolder<Country> {
 
     @NonNull
     private final TextView mCountryName;
@@ -28,7 +28,7 @@ public final class CountryViewHolder extends ListItemViewHolder {
     }
 
     @Override
-    public void bindToListItem(@NonNull final ListItem item) {
+    public void bindToListItem(@NonNull final ListItem<Country> item) {
         assertListItemType(item, COUNTRY);
 
         item.model()

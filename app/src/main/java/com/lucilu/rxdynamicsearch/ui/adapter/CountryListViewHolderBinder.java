@@ -1,6 +1,6 @@
 package com.lucilu.rxdynamicsearch.ui.adapter;
 
-import com.lucilu.rxdynamicsearch.ui.adapter.base.IViewHolderPopulator;
+import com.lucilu.rxdynamicsearch.ui.adapter.base.IViewHolderBinder;
 import com.lucilu.rxdynamicsearch.ui.adapter.viewholder.CountryViewHolder;
 import com.lucilu.rxdynamicsearch.viewmodel.pojo.ListItem;
 
@@ -11,7 +11,7 @@ import polanski.option.Option;
 
 import static com.lucilu.rxdynamicsearch.Constants.ListItem.COUNTRY;
 
-public final class ListItemViewHolderPopulator implements IViewHolderPopulator<ListItem> {
+public final class CountryListViewHolderBinder implements IViewHolderBinder<ListItem> {
 
     @Override
     public void populateViewHolder(@NonNull final Option<ViewHolder> viewHolder,

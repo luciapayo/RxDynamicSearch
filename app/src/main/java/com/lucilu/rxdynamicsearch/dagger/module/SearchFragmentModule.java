@@ -1,7 +1,7 @@
 package com.lucilu.rxdynamicsearch.dagger.module;
 
 import com.lucilu.rxdynamicsearch.dagger.Scopes.FragmentScope;
-import com.lucilu.rxdynamicsearch.fragments.SearchFragment;
+import com.lucilu.rxdynamicsearch.fragments.CountryListFragment;
 
 import android.support.annotation.NonNull;
 
@@ -12,7 +12,7 @@ import rx.Observable;
 import static com.lucilu.rxdynamicsearch.utils.Preconditions.get;
 
 /**
- * Provides {@link SearchFragment} specific objects.
+ * Provides {@link CountryListFragment} specific objects.
  */
 @Module
 public final class SearchFragmentModule {

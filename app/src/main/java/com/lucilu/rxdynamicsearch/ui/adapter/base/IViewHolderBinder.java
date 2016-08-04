@@ -8,7 +8,7 @@ import polanski.option.Option;
 /**
  * Populates a {@link ViewHolder} with the model details.
  */
-public interface IViewHolderPopulator<T> {
+public interface IViewHolderBinder<T> {
 
     /**
      * Populates the passed {@link ViewHolder} with the details of the passed model.

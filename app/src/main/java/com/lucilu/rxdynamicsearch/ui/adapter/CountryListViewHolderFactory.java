@@ -12,12 +12,12 @@ import android.view.View;
 
 import static com.lucilu.rxdynamicsearch.Constants.ListItem.COUNTRY;
 
-public final class ListItemViewHolderFactory implements IViewHolderFactory {
+public final class CountryListViewHolderFactory implements IViewHolderFactory {
 
     @NonNull
     private final Context mContext;
 
-    public ListItemViewHolderFactory(@NonNull final Context context) {
+    public CountryListViewHolderFactory(@NonNull final Context context) {
         mContext = context;
     }
 

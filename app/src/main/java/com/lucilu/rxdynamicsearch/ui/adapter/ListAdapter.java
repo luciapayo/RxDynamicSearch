@@ -3,7 +3,7 @@ package com.lucilu.rxdynamicsearch.ui.adapter;
 import com.lucilu.rxdynamicsearch.dagger.Scopes.FragmentScope;
 import com.lucilu.rxdynamicsearch.ui.adapter.base.IAdapterInteractor;
 import com.lucilu.rxdynamicsearch.ui.adapter.base.IViewHolderFactory;
-import com.lucilu.rxdynamicsearch.ui.adapter.base.IViewHolderPopulator;
+import com.lucilu.rxdynamicsearch.ui.adapter.base.IViewHolderBinder;
 import com.lucilu.rxdynamicsearch.viewmodel.pojo.ListItem;
 
 import android.support.annotation.IntRange;
@@ -35,12 +35,12 @@ public final class ListAdapter extends Adapter {
     private final IViewHolderFactory mInstantiator;
 
     @NonNull
-    private final IViewHolderPopulator<ListItem> mPopulator;
+    private final IViewHolderBinder<ListItem> mPopulator;
 
     @Inject
     public ListAdapter(@NonNull final IAdapterInteractor<ListItem> interactor,
                        @NonNull final IViewHolderFactory instantiator,
-                       @NonNull final IViewHolderPopulator<ListItem> populator) {
+                       @NonNull final IViewHolderBinder<ListItem> populator) {
         mInteractor = interactor;
         mInstantiator = instantiator;
         mPopulator = populator;

@@ -30,7 +30,7 @@ import timber.log.Timber;
 
 import static com.lucilu.rxdynamicsearch.utils.Preconditions.get;
 
-public final class SearchFragment extends BaseFragment {
+public final class CountryListFragment extends BaseFragment {
 
     @Nullable
     @Inject

@@ -15,6 +15,6 @@ public interface IViewHolderBinder<T> {
      *
      * @param viewHolder {@link Option} wrapping the {@link ViewHolder}
      */
-    void populateViewHolder(@NonNull final Option<ViewHolder> viewHolder,
-                            @NonNull final T model);
+    void bind(@NonNull final Option<ViewHolder> viewHolder,
+              @NonNull final T model);
 }

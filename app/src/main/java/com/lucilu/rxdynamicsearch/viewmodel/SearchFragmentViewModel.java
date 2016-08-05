@@ -12,7 +12,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import polanski.option.Option;
 import rx.Observable;
 import rx.subscriptions.CompositeSubscription;
 
@@ -51,12 +50,11 @@ public final class SearchFragmentViewModel extends ViewModel {
     @NonNull
     private Observable<List<ListItem>> transform(List<Country> countries) {
         return Observable.from(countries)
-                         .map(Option::ofObj)
                          .map(this::toListItem)
                          .toList();
     }
 
-    private ListItem toListItem(@NonNull final Option<Country> model) {
-        return ListItem.<Country>builder().type(COUNTRY).model(model).build();
+    private ListItem toListItem(@NonNull final Country model) {
+        return ListItem.builder().type(COUNTRY).model(model).build();
     }
 }

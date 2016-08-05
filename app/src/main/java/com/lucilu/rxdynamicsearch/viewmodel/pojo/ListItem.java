@@ -4,15 +4,13 @@ import com.google.auto.value.AutoValue;
 
 import android.support.annotation.NonNull;
 
-import polanski.option.Option;
-
 @AutoValue
 public abstract class ListItem<T> {
 
     public abstract int type();
 
     @NonNull
-    public abstract Option<T> model();
+    public abstract T model();
 
     @SuppressWarnings("NullableProblems")
     @AutoValue.Builder
@@ -22,7 +20,7 @@ public abstract class ListItem<T> {
         public abstract Builder<T> type(@NonNull int type);
 
         @NonNull
-        public abstract Builder<T> model(@NonNull Option<T> model);
+        public abstract Builder<T> model(@NonNull T model);
 
         @NonNull
         public abstract ListItem<T> build();

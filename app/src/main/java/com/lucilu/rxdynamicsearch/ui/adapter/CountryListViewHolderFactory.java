@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import static com.lucilu.rxdynamicsearch.Constants.ListItem.COUNTRY;
 
@@ -23,10 +24,11 @@ public final class CountryListViewHolderFactory implements IViewHolderFactory {
 
     @NonNull
     @Override
-    public ViewHolder createViewHolder(final int itemType) {
+    public ViewHolder createViewHolder(@NonNull final ViewGroup parent, final int itemType) {
         switch (itemType) {
             case COUNTRY:
-                View view = LayoutInflater.from(mContext).inflate(R.layout.item_country, null);
+                View view = LayoutInflater.from(mContext)
+                                          .inflate(R.layout.item_country, parent, false);
                 return new CountryViewHolder(view);
             default:
                 throw new IllegalStateException("Unknown type " + itemType);

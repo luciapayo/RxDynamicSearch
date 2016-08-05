@@ -48,7 +48,7 @@ public final class ListAdapter extends Adapter {
 
     @Override
     public ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
-        return mInstantiator.createViewHolder(viewType);
+        return mInstantiator.createViewHolder(parent, viewType);
     }
 
     @Override

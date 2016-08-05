@@ -2,26 +2,28 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <android.support.design.widget.AppBarLayout
-            android:layout_height="wrap_content"
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:theme="@style/AppTheme.AppBarOverlay">
 
-        <SearchView android:id="@+id/searchView_countryName"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:queryHint="@string/search_box_hint"/>
+            <SearchView
+                android:id="@+id/searchView_countryName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:queryHint="@string/search_box_hint" />
 
-    </android.support.design.widget.AppBarLayout>
+        </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.RecyclerView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/list_country"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:padding="8dp" />
 
-</LinearLayout>
+    </LinearLayout>
 </layout>

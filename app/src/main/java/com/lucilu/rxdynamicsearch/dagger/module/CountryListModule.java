@@ -17,12 +17,12 @@ import dagger.Provides;
 public final class CountryListModule {
 
     @Provides
-    IViewHolderFactory provideViewHoldeFactory(@ForActivity Context context) {
+    IViewHolderFactory provideViewHolderFactory(@ForActivity Context context) {
         return new CountryListViewHolderFactory(context);
     }
 
     @Provides
-    IViewHolderBinder<ListItem> provideViewHodelBinder() {
+    IViewHolderBinder<ListItem> provideViewHolderBinder() {
         return new CountryListViewHolderBinder(new CountryItemViewModel_Factory());
     }
 }

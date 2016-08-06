@@ -2,7 +2,9 @@ package com.lucilu.rxdynamicsearch.ui.adapter;
 
 import com.lucilu.rxdynamicsearch.data.pojo.Country;
 import com.lucilu.rxdynamicsearch.ui.adapter.base.IViewHolderBinder;
+import com.lucilu.rxdynamicsearch.ui.adapter.viewholder.BindingViewHolder;
 import com.lucilu.rxdynamicsearch.ui.adapter.viewholder.CountryViewHolder;
+import com.lucilu.rxdynamicsearch.viewmodel.CountryItemViewModel;
 import com.lucilu.rxdynamicsearch.viewmodel.CountryItemViewModel_Factory;
 import com.lucilu.rxdynamicsearch.viewmodel.pojo.ListItem;
 
@@ -28,14 +30,16 @@ public final class CountryListViewHolderBinder implements IViewHolderBinder<List
                      @NonNull final ListItem listItem) {
         switch (listItem.type()) {
             case COUNTRY:
+                CountryItemViewModel viewModel = mViewModelFactory
+                        .create((Country) listItem.model());
                 viewHolder.ofType(CountryViewHolder.class)
-                          .ifSome(holder -> holder.bind((Country) listItem.model()));
+                          .ifSome(holder -> holder.bind(viewModel));
         }
     }
 
     @Override
-    public void unbind() {
-
+    public void unbind(@NonNull final Option<ViewHolder> viewHolder) {
+        viewHolder.ofType(BindingViewHolder.class)
+                  .ifSome(BindingViewHolder::unbind);
     }
-
 }

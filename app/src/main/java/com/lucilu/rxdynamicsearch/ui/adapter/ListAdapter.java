@@ -59,7 +59,7 @@ public final class ListAdapter extends Adapter {
 
     @Override
     public void onViewRecycled(final ViewHolder holder) {
-
+        mBinder.unbind(ofObj(holder));
     }
 
     @Override

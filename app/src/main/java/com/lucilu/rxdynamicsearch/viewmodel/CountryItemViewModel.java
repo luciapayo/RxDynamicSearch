@@ -5,6 +5,7 @@ import com.lucilu.rxdynamicsearch.viewmodel.base.ViewModel;
 
 import android.support.annotation.NonNull;
 
+import rx.Observable;
 import rx.subscriptions.CompositeSubscription;
 
 public class CountryItemViewModel extends ViewModel {
@@ -19,5 +20,9 @@ public class CountryItemViewModel extends ViewModel {
     @Override
     protected void subscribeToData(@NonNull final CompositeSubscription subscription) {
         // Do stuff
+    }
+
+    public Observable<Country> getCountryOnce() {
+        return Observable.just(mCountry);
     }
 }

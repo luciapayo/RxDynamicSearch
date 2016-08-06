@@ -9,6 +9,6 @@ public interface Constants {
 
         int INVALID_VIEW_TYPE = -1;
         int COUNTRY = 0;
-
+        int AD = 1;
     }
 }

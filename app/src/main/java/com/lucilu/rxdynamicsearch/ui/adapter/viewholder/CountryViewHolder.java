@@ -31,13 +31,12 @@ public final class CountryViewHolder extends BindingViewHolder<CountryItemViewMo
 
     @Override
     protected void subscribeViewHolder(@NonNull final CompositeSubscription s) {
-        s.add(getViewModel()
-                      .getCountryOnce()
-                      .subscribeOn(Schedulers.computation())
-                      .observeOn(AndroidSchedulers.mainThread())
-                      .subscribe(this::populate,
-                                 e -> Timber.e(e,
-                                               "It was not possible to show the country in the list")));
+        s.add(getViewModel().getCountryOnce()
+                            .subscribeOn(Schedulers.computation())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(this::populate,
+                                       e -> Timber.e(e,
+                                                     "It was not possible to show the country in the list")));
     }
 
     private void populate(@NonNull final Country country) {

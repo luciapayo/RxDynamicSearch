@@ -51,7 +51,7 @@ public final class CountryListFragment extends BaseFragment {
     public View onCreateView(final LayoutInflater inflater,
                              @Nullable final ViewGroup container,
                              @Nullable final Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_search, container, false);
+        return inflater.inflate(R.layout.fragment_country_list, container, false);
     }
 
     @Override

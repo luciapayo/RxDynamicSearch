@@ -1,7 +1,9 @@
 package com.lucilu.rxdynamicsearch.ui.adapter;
 
+import com.lucilu.rxdynamicsearch.data.pojo.Ad;
 import com.lucilu.rxdynamicsearch.data.pojo.Country;
 import com.lucilu.rxdynamicsearch.ui.adapter.base.IViewHolderBinder;
+import com.lucilu.rxdynamicsearch.ui.adapter.viewholder.AdViewHolder;
 import com.lucilu.rxdynamicsearch.ui.adapter.viewholder.BindingViewHolder;
 import com.lucilu.rxdynamicsearch.ui.adapter.viewholder.CountryViewHolder;
 import com.lucilu.rxdynamicsearch.viewmodel.CountryItemViewModel;
@@ -13,6 +15,7 @@ import android.support.v7.widget.RecyclerView.ViewHolder;
 
 import polanski.option.Option;
 
+import static com.lucilu.rxdynamicsearch.Constants.ListItem.AD;
 import static com.lucilu.rxdynamicsearch.Constants.ListItem.COUNTRY;
 
 public final class CountryListViewHolderBinder implements IViewHolderBinder<ListItem> {
@@ -34,6 +37,13 @@ public final class CountryListViewHolderBinder implements IViewHolderBinder<List
                         .create((Country) listItem.model());
                 viewHolder.ofType(CountryViewHolder.class)
                           .ifSome(holder -> holder.bind(viewModel));
+                break;
+            case AD:
+                viewHolder.ofType(AdViewHolder.class)
+                          .ifSome(holder -> holder.bind((Ad) listItem.model()));
+                break;
+            default:
+                throw new IllegalStateException("The type is not supported "+ listItem.type());
         }
     }
 

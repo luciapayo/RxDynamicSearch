@@ -25,7 +25,7 @@ public final class CountryViewHolder extends ListItemViewHolder<Country> {
     }
 
     @Override
-    public void bindToModel(@NonNull final Country country) {
+    public void bind(@NonNull final Country country) {
         mCountryName.setText(country.getName());
         mCapital.setText(country.getCapital());
     }

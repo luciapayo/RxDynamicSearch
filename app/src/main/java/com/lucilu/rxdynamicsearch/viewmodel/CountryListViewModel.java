@@ -20,7 +20,7 @@ import static com.lucilu.rxdynamicsearch.rx.Transformers.choose;
 import static com.lucilu.rxdynamicsearch.utils.Preconditions.get;
 
 @FragmentScope
-public final class SearchFragmentViewModel extends ViewModel {
+public final class CountryListViewModel extends ViewModel {
 
     @NonNull
     private final Observable<CharSequence> mQueryStream;
@@ -29,8 +29,8 @@ public final class SearchFragmentViewModel extends ViewModel {
     private final ICountryRepository mCountryRepository;
 
     @Inject
-    public SearchFragmentViewModel(@NonNull final Observable<CharSequence> queryStream,
-                                   @NonNull final ICountryRepository countryRepository) {
+    public CountryListViewModel(@NonNull final Observable<CharSequence> queryStream,
+                                @NonNull final ICountryRepository countryRepository) {
         mQueryStream = get(queryStream);
         mCountryRepository = get(countryRepository);
     }

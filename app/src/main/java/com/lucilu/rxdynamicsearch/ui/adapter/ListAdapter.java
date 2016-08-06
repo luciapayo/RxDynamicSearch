@@ -58,6 +58,11 @@ public final class ListAdapter extends Adapter {
     }
 
     @Override
+    public void onViewRecycled(final ViewHolder holder) {
+
+    }
+
+    @Override
     public int getItemCount() {
         return mInteractor.getCount();
     }

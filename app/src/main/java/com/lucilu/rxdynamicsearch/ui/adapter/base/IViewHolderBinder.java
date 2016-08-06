@@ -17,4 +17,6 @@ public interface IViewHolderBinder<T> {
      */
     void bind(@NonNull final Option<ViewHolder> viewHolder,
               @NonNull final T model);
+
+    void unbind();
 }

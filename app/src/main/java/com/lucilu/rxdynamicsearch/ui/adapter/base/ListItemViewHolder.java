@@ -10,5 +10,5 @@ public abstract class ListItemViewHolder<T> extends ViewHolder {
         super(itemView);
     }
 
-    protected abstract void bindToModel(@NonNull final T model);
+    protected abstract void bind(@NonNull final T model);
 }

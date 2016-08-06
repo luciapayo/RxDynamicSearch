@@ -2,12 +2,12 @@ package com.lucilu.rxdynamicsearch.fragments;
 
 import com.lucilu.rxdynamicsearch.R;
 import com.lucilu.rxdynamicsearch.activities.MainActivity;
-import com.lucilu.rxdynamicsearch.dagger.component.SearchFragmentComponent;
+import com.lucilu.rxdynamicsearch.dagger.component.CountryListComponent;
 import com.lucilu.rxdynamicsearch.dagger.module.SearchFragmentModule;
 import com.lucilu.rxdynamicsearch.fragments.base.BaseFragment;
 import com.lucilu.rxdynamicsearch.ui.adapter.ListAdapter;
 import com.lucilu.rxdynamicsearch.utils.ViewUtils;
-import com.lucilu.rxdynamicsearch.viewmodel.SearchFragmentViewModel;
+import com.lucilu.rxdynamicsearch.viewmodel.CountryListViewModel;
 import com.lucilu.rxdynamicsearch.viewmodel.base.ViewModel;
 
 import android.os.Bundle;
@@ -34,7 +34,7 @@ public final class CountryListFragment extends BaseFragment {
 
     @Nullable
     @Inject
-    SearchFragmentViewModel mViewModel;
+    CountryListViewModel mViewModel;
 
     @Nullable
     private SearchView mSearchView;
@@ -90,7 +90,7 @@ public final class CountryListFragment extends BaseFragment {
         createComponent().inject(this);
     }
 
-    private SearchFragmentComponent createComponent() {
+    private CountryListComponent createComponent() {
         MainActivity activity = (MainActivity) getActivity();
         SearchFragmentModule searchFragmentModule = new SearchFragmentModule(getQueryStream());
 

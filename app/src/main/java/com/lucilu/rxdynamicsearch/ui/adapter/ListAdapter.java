@@ -2,8 +2,8 @@ package com.lucilu.rxdynamicsearch.ui.adapter;
 
 import com.lucilu.rxdynamicsearch.dagger.Scopes.FragmentScope;
 import com.lucilu.rxdynamicsearch.ui.adapter.base.IAdapterInteractor;
-import com.lucilu.rxdynamicsearch.ui.adapter.base.IViewHolderFactory;
 import com.lucilu.rxdynamicsearch.ui.adapter.base.IViewHolderBinder;
+import com.lucilu.rxdynamicsearch.ui.adapter.base.IViewHolderFactory;
 import com.lucilu.rxdynamicsearch.viewmodel.pojo.ListItem;
 
 import android.support.annotation.IntRange;
@@ -36,26 +36,31 @@ public final class ListAdapter extends Adapter {
     private final IViewHolderFactory mInstantiator;
 
     @NonNull
-    private final IViewHolderBinder<ListItem> mPopulator;
+    private final IViewHolderBinder<ListItem> mBinder;
 
     @Inject
     public ListAdapter(@NonNull final IAdapterInteractor<ListItem> interactor,
                        @NonNull final IViewHolderFactory instantiator,
-                       @NonNull final IViewHolderBinder<ListItem> populator) {
+                       @NonNull final IViewHolderBinder<ListItem> binder) {
         mInteractor = interactor;
         mInstantiator = instantiator;
-        mPopulator = populator;
+        mBinder = binder;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
-        return mInstantiator.createViewHolder(viewType);
+        return mInstantiator.createViewHolder(parent, viewType);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         mInteractor.getItem(position)
-                   .ifSome(item -> mPopulator.populateViewHolder(ofObj(holder), item));
+                   .ifSome(item -> mBinder.bind(ofObj(holder), item));
+    }
+
+    @Override
+    public void onViewRecycled(final ViewHolder holder) {
+        mBinder.unbind(ofObj(holder));
     }
 
     @Override

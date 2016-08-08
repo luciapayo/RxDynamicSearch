@@ -18,7 +18,7 @@ import static polanski.option.Option.ofObj;
 /**
  * Handles testable logic for interpreting adapter events.
  */
-public class AdapterInteractor<T> implements IAdapterInteractor<T> {
+public final class AdapterInteractor<T> implements IAdapterInteractor<T> {
 
     @NonNull
     protected final List<T> mModels = new ArrayList<>();

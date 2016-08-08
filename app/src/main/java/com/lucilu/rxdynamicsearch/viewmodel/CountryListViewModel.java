@@ -1,6 +1,7 @@
 package com.lucilu.rxdynamicsearch.viewmodel;
 
 import com.lucilu.rxdynamicsearch.dagger.Scopes.FragmentScope;
+import com.lucilu.rxdynamicsearch.data.pojo.Ad;
 import com.lucilu.rxdynamicsearch.data.pojo.Country;
 import com.lucilu.rxdynamicsearch.repository.base.ICountryRepository;
 import com.lucilu.rxdynamicsearch.viewmodel.base.ViewModel;
@@ -12,16 +13,16 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import polanski.option.Option;
 import rx.Observable;
 import rx.subscriptions.CompositeSubscription;
 
+import static com.lucilu.rxdynamicsearch.Constants.ListItem.AD;
 import static com.lucilu.rxdynamicsearch.Constants.ListItem.COUNTRY;
 import static com.lucilu.rxdynamicsearch.rx.Transformers.choose;
 import static com.lucilu.rxdynamicsearch.utils.Preconditions.get;
 
 @FragmentScope
-public final class SearchFragmentViewModel extends ViewModel {
+public final class CountryListViewModel extends ViewModel {
 
     @NonNull
     private final Observable<CharSequence> mQueryStream;
@@ -30,8 +31,8 @@ public final class SearchFragmentViewModel extends ViewModel {
     private final ICountryRepository mCountryRepository;
 
     @Inject
-    public SearchFragmentViewModel(@NonNull final Observable<CharSequence> queryStream,
-                                   @NonNull final ICountryRepository countryRepository) {
+    public CountryListViewModel(@NonNull final Observable<CharSequence> queryStream,
+                                @NonNull final ICountryRepository countryRepository) {
         mQueryStream = get(queryStream);
         mCountryRepository = get(countryRepository);
     }
@@ -45,18 +46,26 @@ public final class SearchFragmentViewModel extends ViewModel {
     public Observable<List<ListItem>> getListItemStream() {
         return mCountryRepository.getAllCountries()
                                  .compose(choose())
-                                 .switchMap(this::transform);
+                                 .switchMap(this::transform)
+                                 .map(this::insertAds);
     }
 
     @NonNull
-    private Observable<List<ListItem>> transform(List<Country> countries) {
+    private Observable<List<ListItem>> transform(@NonNull final List<Country> countries) {
         return Observable.from(countries)
-                         .map(Option::ofObj)
-                         .map(this::toListItem)
+                         .map(country -> toListItem(country, COUNTRY))
                          .toList();
     }
 
-    private ListItem toListItem(@NonNull final Option<Country> model) {
-        return ListItem.<Country>builder().type(COUNTRY).model(model).build();
+    private List<ListItem> insertAds(@NonNull final List<ListItem> countryListItems) {
+        countryListItems.add(10, toListItem(Ad.createAd("Put your ad here"), AD));
+        countryListItems.add(20, toListItem(Ad.createAd("Put your ad here"), AD));
+        countryListItems.add(30, toListItem(Ad.createAd("Put your ad here"), AD));
+
+        return countryListItems;
+    }
+
+    private static ListItem toListItem(@NonNull final Object model, final int type) {
+        return ListItem.builder().type(type).model(model).build();
     }
 }

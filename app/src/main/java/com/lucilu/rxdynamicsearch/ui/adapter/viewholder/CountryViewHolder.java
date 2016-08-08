@@ -2,17 +2,19 @@ package com.lucilu.rxdynamicsearch.ui.adapter.viewholder;
 
 import com.lucilu.rxdynamicsearch.R;
 import com.lucilu.rxdynamicsearch.data.pojo.Country;
-import com.lucilu.rxdynamicsearch.ui.adapter.base.ListItemViewHolder;
 import com.lucilu.rxdynamicsearch.utils.ViewUtils;
-import com.lucilu.rxdynamicsearch.viewmodel.pojo.ListItem;
+import com.lucilu.rxdynamicsearch.viewmodel.CountryItemViewModel;
 
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
-import static com.lucilu.rxdynamicsearch.Constants.ListItem.COUNTRY;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
+import timber.log.Timber;
 
-public final class CountryViewHolder extends ListItemViewHolder<Country> {
+public final class CountryViewHolder extends BindingViewHolder<CountryItemViewModel> {
 
     @NonNull
     private final TextView mCountryName;
@@ -20,7 +22,7 @@ public final class CountryViewHolder extends ListItemViewHolder<Country> {
     @NonNull
     private final TextView mCapital;
 
-    public CountryViewHolder(final View itemView) {
+    public CountryViewHolder(@NonNull final View itemView) {
         super(itemView);
 
         mCountryName = ViewUtils.find(itemView, R.id.item_textView_country);
@@ -28,15 +30,16 @@ public final class CountryViewHolder extends ListItemViewHolder<Country> {
     }
 
     @Override
-    public void bindToListItem(@NonNull final ListItem<Country> item) {
-        assertListItemType(item, COUNTRY);
-
-        item.model()
-            .ofType(Country.class)
-            .ifSome(this::bindToModel);
+    protected void subscribeViewHolder(@NonNull final CompositeSubscription s) {
+        s.add(getViewModel().getCountryOnce()
+                            .subscribeOn(Schedulers.computation())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(this::populate,
+                                       e -> Timber.e(e,
+                                                     "It was not possible to show the country in the list")));
     }
 
-    private void bindToModel(@NonNull final Country country) {
+    private void populate(@NonNull final Country country) {
         mCountryName.setText(country.getName());
         mCapital.setText(country.getCapital());
     }

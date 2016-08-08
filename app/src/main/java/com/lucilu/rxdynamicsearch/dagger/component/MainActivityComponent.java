@@ -17,5 +17,5 @@ public interface MainActivityComponent {
 
     void inject(MainActivity activity);
 
-    SearchFragmentComponent plusSearchFragment(SearchFragmentModule module);
+    CountryListComponent plusSearchFragment(SearchFragmentModule module);
 }

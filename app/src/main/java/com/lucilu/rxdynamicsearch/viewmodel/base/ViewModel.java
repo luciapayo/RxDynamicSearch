@@ -40,7 +40,7 @@ public abstract class ViewModel {
     /**
      * Provides {@link CompositeSubscription} that all bindings should be registered to.
      *
-     * @param subscription that holds the {@link Subscription}s created by view model
+     * @param subscription that holds the subscriptions created by view model
      */
     protected abstract void subscribeToData(@NonNull final CompositeSubscription subscription);
 }

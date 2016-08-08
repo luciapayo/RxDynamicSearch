@@ -20,6 +20,7 @@ import polanski.option.Option;
 import polanski.option.function.Func0;
 
 import static com.lucilu.rxdynamicsearch.Constants.ListItem.INVALID_VIEW_TYPE;
+import static com.lucilu.rxdynamicsearch.utils.Preconditions.assertUiThread;
 import static polanski.option.Option.ofObj;
 
 /**
@@ -136,6 +137,8 @@ public final class ListAdapter extends Adapter {
     }
 
     private void applyChanges(@NonNull final Func0<Boolean> applyFunction) {
+        assertUiThread();
+
         if (applyFunction.call()) {
             notifyDataSetChanged();
         }

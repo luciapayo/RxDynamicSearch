@@ -8,7 +8,7 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
-public class AdViewHolder extends SimpleViewHolder<Ad> {
+public final class AdViewHolder extends SimpleViewHolder<Ad> {
 
     @NonNull
     private final TextView headerTextView;

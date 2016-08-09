@@ -2,6 +2,7 @@ package com.lucilu.rxdynamicsearch.ui.adapter.viewholder;
 
 import com.lucilu.rxdynamicsearch.R;
 import com.lucilu.rxdynamicsearch.data.pojo.Country;
+import com.lucilu.rxdynamicsearch.service.LifecycleService;
 import com.lucilu.rxdynamicsearch.utils.ViewUtils;
 import com.lucilu.rxdynamicsearch.viewmodel.CountryItemViewModel;
 
@@ -22,8 +23,9 @@ public final class CountryViewHolder extends BindingViewHolder<CountryItemViewMo
     @NonNull
     private final TextView mCapital;
 
-    public CountryViewHolder(@NonNull final View itemView) {
-        super(itemView);
+    public CountryViewHolder(@NonNull final View itemView,
+                             @NonNull final LifecycleService lifecycleService) {
+        super(itemView, lifecycleService);
 
         mCountryName = ViewUtils.find(itemView, R.id.item_textView_country);
         mCapital = ViewUtils.find(itemView, R.id.item_textView_capital);
@@ -31,12 +33,17 @@ public final class CountryViewHolder extends BindingViewHolder<CountryItemViewMo
 
     @Override
     protected void subscribeViewHolder(@NonNull final CompositeSubscription s) {
-        s.add(getViewModel().getCountryOnce()
-                            .subscribeOn(Schedulers.computation())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(this::populate,
-                                       e -> Timber.e(e,
-                                                     "It was not possible to show the country in the list")));
+        getViewModel().ifSome(viewModel -> subscribeToCountry(s, viewModel));
+    }
+
+    private void subscribeToCountry(@NonNull final CompositeSubscription s,
+                                    @NonNull final CountryItemViewModel viewModel) {
+        s.add(viewModel.getCountryOnce()
+                       .subscribeOn(Schedulers.computation())
+                       .observeOn(AndroidSchedulers.mainThread())
+                       .subscribe(this::populate,
+                                  e -> Timber.e(e,
+                                                "It was not possible to show the country in the list")));
     }
 
     private void populate(@NonNull final Country country) {

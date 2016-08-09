@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Generic {@link ParameterizedType} for lists of Json generic objects of type T.
  */
-public class ListOfJsonType<T> implements ParameterizedType {
+public final class ListOfJsonType<T> implements ParameterizedType {
 
     private Class<?> wrapped;
 

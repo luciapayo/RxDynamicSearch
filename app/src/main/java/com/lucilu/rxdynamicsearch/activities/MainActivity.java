@@ -2,15 +2,19 @@ package com.lucilu.rxdynamicsearch.activities;
 
 import com.lucilu.rxdynamicsearch.R;
 import com.lucilu.rxdynamicsearch.SearchApplication;
+import com.lucilu.rxdynamicsearch.StaticCounter;
 import com.lucilu.rxdynamicsearch.activities.base.BaseActivity;
 import com.lucilu.rxdynamicsearch.dagger.component.MainActivityComponent;
 import com.lucilu.rxdynamicsearch.dagger.module.ActivityModule;
+import com.lucilu.rxdynamicsearch.utils.ViewUtils;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.widget.TextView;
 
 import rx.subscriptions.CompositeSubscription;
+import timber.log.Timber;
 
 import static com.lucilu.rxdynamicsearch.utils.Preconditions.get;
 
@@ -19,15 +23,32 @@ public final class MainActivity extends BaseActivity {
     @Nullable
     private MainActivityComponent mComponent;
 
+    private TextView dataCounter;
+    private TextView lifecycleCounter;
+
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        dataCounter = ViewUtils.find(this, R.id.tv_subscriptions_data);
+        lifecycleCounter = ViewUtils.find(this, R.id.tv_subscriptions_lifecycle);
+
+
     }
 
     @Override
-    protected void onBind(@NonNull final CompositeSubscription subscription) {
-        // DO nothing (for now)
+    protected void onBind(@NonNull final CompositeSubscription s) {
+        s.add(StaticCounter.getDataSubscriptionsStream()
+                           .subscribe(it -> dataCounter
+                                              .setText(String.format(getString(R.string.data_counter), it)),
+                                      error -> Timber.d("Error setting data counter", error)));
+
+        s.add(StaticCounter.getLifecycleSubscriptionsStream()
+                           .subscribe(it -> lifecycleCounter
+                                              .setText(String.format(getString(R.string.lifecycle_counter),
+                                                                     it)),
+                                      error -> Timber.d("Error setting data counter", error)));
     }
 
     @Override

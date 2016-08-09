@@ -6,7 +6,25 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         tools:context="com.lucilu.rxdynamicsearch.activities.MainActivity">
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical">
 
-    <include layout="@layout/content_main"/>
+
+        <TextView
+                android:id="@+id/tv_subscriptions_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/data_counter"/>
+
+        <TextView
+                android:id="@+id/tv_subscriptions_lifecycle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lifecycle_counter"/>
+
+        <include layout="@layout/content_main"/>
+
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

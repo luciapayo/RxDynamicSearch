@@ -1,5 +1,6 @@
 package com.lucilu.rxdynamicsearch.ui.adapter.viewholder;
 
+import com.lucilu.rxdynamicsearch.StaticCounter;
 import com.lucilu.rxdynamicsearch.service.LifecycleService;
 import com.lucilu.rxdynamicsearch.service.LifecycleService.Lifecycle;
 import com.lucilu.rxdynamicsearch.viewmodel.base.ViewModel;
@@ -39,6 +40,7 @@ public abstract class BindingViewHolder<T extends ViewModel> extends ViewHolder 
     }
 
     private Subscription init() {
+        StaticCounter.incrementLifecycleSubscriptions();
         return mLifecycleService.getLifecycleStream()
                                 .distinctUntilChanged()
                                 .subscribe(this::actOnLifecycleEvent,
@@ -70,6 +72,7 @@ public abstract class BindingViewHolder<T extends ViewModel> extends ViewHolder 
     private void subscribe() {
         mViewModel.ifSome(ViewModel::subscribeToDataStore);
         subscribeViewHolder(mSubscriptions);
+        StaticCounter.incrementDataSubscriptions();
         Timber.d(">>>> Subscribing %s", hashCode());
     }
 
@@ -84,6 +87,7 @@ public abstract class BindingViewHolder<T extends ViewModel> extends ViewHolder 
     private void unsubscribe() {
         mSubscriptions.clear();
         getViewModel().ifSome(ViewModel::dispose);
+        StaticCounter.decrementDataSubscriptions();
         Timber.d(">>>> Unsubscribing %s", hashCode());
     }
 
@@ -97,5 +101,6 @@ public abstract class BindingViewHolder<T extends ViewModel> extends ViewHolder 
         if (!mLifecycleSubscription.isUnsubscribed()) {
             mLifecycleSubscription.unsubscribe();
         }
+        StaticCounter.decrementLifecylceSubcriptions();
     }
 }

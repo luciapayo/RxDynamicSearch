@@ -10,7 +10,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
-                android:name="com.lucilu.rxdynamicsearch.activities.MainActivity"
+                android:name=".activities.MainActivity"
                 android:label="@string/title_activity_main"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -18,6 +18,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".activities.CountryDetailsActivity">
         </activity>
     </application>
 

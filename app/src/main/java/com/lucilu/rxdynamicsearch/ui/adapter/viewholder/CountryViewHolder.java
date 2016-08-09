@@ -1,11 +1,13 @@
 package com.lucilu.rxdynamicsearch.ui.adapter.viewholder;
 
 import com.lucilu.rxdynamicsearch.R;
+import com.lucilu.rxdynamicsearch.activities.CountryDetailsActivity;
 import com.lucilu.rxdynamicsearch.data.pojo.Country;
 import com.lucilu.rxdynamicsearch.service.LifecycleService;
 import com.lucilu.rxdynamicsearch.utils.ViewUtils;
 import com.lucilu.rxdynamicsearch.viewmodel.CountryItemViewModel;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
@@ -29,6 +31,10 @@ public final class CountryViewHolder extends BindingViewHolder<CountryItemViewMo
 
         mCountryName = ViewUtils.find(itemView, R.id.item_textView_country);
         mCapital = ViewUtils.find(itemView, R.id.item_textView_capital);
+
+        itemView.setOnClickListener(v -> v.getContext()
+                                          .startActivity(new Intent(v.getContext(),
+                                                                    CountryDetailsActivity.class)));
     }
 
     @Override

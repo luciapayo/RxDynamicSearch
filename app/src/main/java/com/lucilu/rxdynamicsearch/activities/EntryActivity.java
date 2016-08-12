@@ -1,38 +1,35 @@
 package com.lucilu.rxdynamicsearch.activities;
 
 import com.lucilu.rxdynamicsearch.R;
-import com.lucilu.rxdynamicsearch.SearchApplication;
 import com.lucilu.rxdynamicsearch.StaticCounter;
 import com.lucilu.rxdynamicsearch.activities.base.BaseActivity;
-import com.lucilu.rxdynamicsearch.dagger.component.MainActivityComponent;
-import com.lucilu.rxdynamicsearch.dagger.module.ActivityModule;
 import com.lucilu.rxdynamicsearch.utils.ViewUtils;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.widget.Button;
 import android.widget.TextView;
 
 import rx.subscriptions.CompositeSubscription;
 import timber.log.Timber;
 
-import static com.lucilu.rxdynamicsearch.utils.Preconditions.get;
-
-public final class MainActivity extends BaseActivity {
-
-    @Nullable
-    private MainActivityComponent mComponent;
+public class EntryActivity extends BaseActivity {
 
     private TextView dataCounter;
     private TextView lifecycleCounter;
+    private Button navigateButton;
 
     @Override
-    protected void onCreate(@Nullable final Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_entry);
 
         dataCounter = ViewUtils.find(this, R.id.tv_subscriptions_data);
         lifecycleCounter = ViewUtils.find(this, R.id.tv_subscriptions_lifecycle);
+        navigateButton = ViewUtils.find(this, R.id.button_navigate);
+
+        navigateButton.setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
     }
 
     @Override
@@ -51,25 +48,6 @@ public final class MainActivity extends BaseActivity {
 
     @Override
     public void onInject() {
-        mComponent = createComponent();
-        mComponent.inject(this);
-    }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Timber.d(">>>> DESTROYING Main activity");
-    }
-
-    @NonNull
-    public MainActivityComponent getComponent() {
-        return get(mComponent);
-    }
-
-    private MainActivityComponent createComponent() {
-        SearchApplication app = (SearchApplication) getApplication();
-        ActivityModule activityModule = new ActivityModule(this);
-
-        return app.getAppComponent().plusMainActivity(activityModule);
     }
 }

@@ -26,7 +26,9 @@ public class StaticCounter {
 
     public static void decrementDataSubscriptions() {
         Preconditions.assertUiThread();
-        dataSubscriptions--;
+        if (dataSubscriptions > 0) {
+            dataSubscriptions--;
+        }
         dataSubscriptionsStream.onNext(dataSubscriptions);
     }
 
@@ -38,7 +40,9 @@ public class StaticCounter {
 
     public static void decrementLifecylceSubcriptions() {
         Preconditions.assertUiThread();
-        lifecycleSubscriptions--;
+        if (lifecycleSubscriptions > 0) {
+            lifecycleSubscriptions--;
+        }
         lifecycleSubscriptionsStream.onNext(lifecycleSubscriptions);
     }
 

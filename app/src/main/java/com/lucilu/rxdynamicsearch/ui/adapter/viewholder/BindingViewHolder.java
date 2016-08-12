@@ -1,8 +1,6 @@
 package com.lucilu.rxdynamicsearch.ui.adapter.viewholder;
 
 import com.lucilu.rxdynamicsearch.StaticCounter;
-import com.lucilu.rxdynamicsearch.service.LifecycleService;
-import com.lucilu.rxdynamicsearch.service.LifecycleService.Lifecycle;
 import com.lucilu.rxdynamicsearch.viewmodel.base.ViewModel;
 
 import android.support.annotation.CallSuper;
@@ -11,7 +9,6 @@ import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.View;
 
 import polanski.option.Option;
-import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 import timber.log.Timber;
 
@@ -24,43 +21,10 @@ public abstract class BindingViewHolder<T extends ViewModel> extends ViewHolder 
     private Option<T> mViewModel = none();
 
     @NonNull
-    private final LifecycleService mLifecycleService;
-
-    @NonNull
     private final CompositeSubscription mSubscriptions = new CompositeSubscription();
 
-    @NonNull
-    private final Subscription mLifecycleSubscription;
-
-    public BindingViewHolder(@NonNull final View itemView,
-                             @NonNull final LifecycleService lifecycleService) {
+    public BindingViewHolder(@NonNull final View itemView) {
         super(itemView);
-        mLifecycleService = lifecycleService;
-        mLifecycleSubscription = init();
-    }
-
-    private Subscription init() {
-        StaticCounter.incrementLifecycleSubscriptions();
-        return mLifecycleService.getLifecycleStream()
-                                .distinctUntilChanged()
-                                .subscribe(this::actOnLifecycleEvent,
-                                           error -> Timber
-                                                   .d("Error dispatching the lifecycle event",
-                                                      error));
-    }
-
-    private void actOnLifecycleEvent(@NonNull final Lifecycle event) {
-        switch (event) {
-            case ON_RESUME:
-                subscribe();
-                break;
-            case ON_PAUSE:
-                unsubscribe();
-                break;
-            case ON_DESTROY:
-                unsubscribeLifecycle();
-                break;
-        }
     }
 
     @CallSuper
@@ -96,11 +60,4 @@ public abstract class BindingViewHolder<T extends ViewModel> extends ViewHolder 
         return mViewModel;
     }
 
-    private void unsubscribeLifecycle() {
-        Timber.d(">>>> Unsubscribing from lifecycle " + hashCode());
-        if (!mLifecycleSubscription.isUnsubscribed()) {
-            mLifecycleSubscription.unsubscribe();
-        }
-        StaticCounter.decrementLifecylceSubcriptions();
-    }
 }

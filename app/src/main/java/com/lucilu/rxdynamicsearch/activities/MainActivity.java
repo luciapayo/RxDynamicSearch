@@ -24,7 +24,6 @@ public final class MainActivity extends BaseActivity {
     private MainActivityComponent mComponent;
 
     private TextView dataCounter;
-    private TextView lifecycleCounter;
 
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
@@ -32,7 +31,6 @@ public final class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
         dataCounter = ViewUtils.find(this, R.id.tv_subscriptions_data);
-        lifecycleCounter = ViewUtils.find(this, R.id.tv_subscriptions_lifecycle);
     }
 
     @Override
@@ -40,12 +38,6 @@ public final class MainActivity extends BaseActivity {
         s.add(StaticCounter.getDataSubscriptionsStream()
                            .subscribe(it -> dataCounter
                                               .setText(String.format(getString(R.string.data_counter), it)),
-                                      error -> Timber.d("Error setting data counter", error)));
-
-        s.add(StaticCounter.getLifecycleSubscriptionsStream()
-                           .subscribe(it -> lifecycleCounter
-                                              .setText(String.format(getString(R.string.lifecycle_counter),
-                                                                     it)),
                                       error -> Timber.d("Error setting data counter", error)));
     }
 

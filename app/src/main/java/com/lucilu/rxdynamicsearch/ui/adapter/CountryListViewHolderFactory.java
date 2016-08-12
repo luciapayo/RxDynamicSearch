@@ -1,7 +1,6 @@
 package com.lucilu.rxdynamicsearch.ui.adapter;
 
 import com.lucilu.rxdynamicsearch.R;
-import com.lucilu.rxdynamicsearch.service.LifecycleService;
 import com.lucilu.rxdynamicsearch.ui.adapter.base.IViewHolderFactory;
 import com.lucilu.rxdynamicsearch.ui.adapter.viewholder.AdViewHolder;
 import com.lucilu.rxdynamicsearch.ui.adapter.viewholder.CountryViewHolder;
@@ -21,13 +20,8 @@ public final class CountryListViewHolderFactory implements IViewHolderFactory {
     @NonNull
     private final Context mContext;
 
-    @NonNull
-    private final LifecycleService mLifecycleService;
-
-    public CountryListViewHolderFactory(@NonNull final Context context,
-                                        @NonNull final LifecycleService lifecycleService) {
+    public CountryListViewHolderFactory(@NonNull final Context context) {
         mContext = context;
-        mLifecycleService = lifecycleService;
     }
 
     @NonNull
@@ -37,7 +31,7 @@ public final class CountryListViewHolderFactory implements IViewHolderFactory {
             case COUNTRY:
                 View view = LayoutInflater.from(mContext).inflate(R.layout.item_country, parent,
                                                                   false);
-                return new CountryViewHolder(view, mLifecycleService);
+                return new CountryViewHolder(view);
             case AD:
                 return new AdViewHolder(LayoutInflater.from(mContext)
                                                       .inflate(R.layout.item_ad, parent, false));

@@ -17,7 +17,6 @@ import timber.log.Timber;
 public class EntryActivity extends BaseActivity {
 
     private TextView dataCounter;
-    private TextView lifecycleCounter;
     private Button navigateButton;
 
     @Override
@@ -26,7 +25,6 @@ public class EntryActivity extends BaseActivity {
         setContentView(R.layout.activity_entry);
 
         dataCounter = ViewUtils.find(this, R.id.tv_subscriptions_data);
-        lifecycleCounter = ViewUtils.find(this, R.id.tv_subscriptions_lifecycle);
         navigateButton = ViewUtils.find(this, R.id.button_navigate);
 
         navigateButton.setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
@@ -37,12 +35,6 @@ public class EntryActivity extends BaseActivity {
         s.add(StaticCounter.getDataSubscriptionsStream()
                            .subscribe(it -> dataCounter
                                               .setText(String.format(getString(R.string.data_counter), it)),
-                                      error -> Timber.d("Error setting data counter", error)));
-
-        s.add(StaticCounter.getLifecycleSubscriptionsStream()
-                           .subscribe(it -> lifecycleCounter
-                                              .setText(String.format(getString(R.string.lifecycle_counter),
-                                                                     it)),
                                       error -> Timber.d("Error setting data counter", error)));
     }
 

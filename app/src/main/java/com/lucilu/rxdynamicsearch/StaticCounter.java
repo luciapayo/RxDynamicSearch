@@ -11,12 +11,9 @@ import rx.subjects.BehaviorSubject;
 public class StaticCounter {
 
     private static int dataSubscriptions = 0;
-    private static int lifecycleSubscriptions = 0;
 
     private static BehaviorSubject<Integer> dataSubscriptionsStream = BehaviorSubject
             .create(dataSubscriptions);
-    private static BehaviorSubject<Integer> lifecycleSubscriptionsStream = BehaviorSubject
-            .create(lifecycleSubscriptions);
 
     public static void incrementDataSubscriptions() {
         Preconditions.assertUiThread();
@@ -32,27 +29,8 @@ public class StaticCounter {
         dataSubscriptionsStream.onNext(dataSubscriptions);
     }
 
-    public static void incrementLifecycleSubscriptions() {
-        Preconditions.assertUiThread();
-        lifecycleSubscriptions++;
-        lifecycleSubscriptionsStream.onNext(lifecycleSubscriptions);
-    }
-
-    public static void decrementLifecylceSubcriptions() {
-        Preconditions.assertUiThread();
-        if (lifecycleSubscriptions > 0) {
-            lifecycleSubscriptions--;
-        }
-        lifecycleSubscriptionsStream.onNext(lifecycleSubscriptions);
-    }
-
     public static Observable<Integer> getDataSubscriptionsStream() {
         Preconditions.assertUiThread();
         return dataSubscriptionsStream.asObservable();
-    }
-
-    public static Observable<Integer> getLifecycleSubscriptionsStream() {
-        Preconditions.assertUiThread();
-        return lifecycleSubscriptionsStream.asObservable();
     }
 }

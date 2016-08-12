@@ -3,7 +3,6 @@ package com.lucilu.rxdynamicsearch.ui.adapter.viewholder;
 import com.lucilu.rxdynamicsearch.R;
 import com.lucilu.rxdynamicsearch.activities.CountryDetailsActivity;
 import com.lucilu.rxdynamicsearch.data.pojo.Country;
-import com.lucilu.rxdynamicsearch.service.LifecycleService;
 import com.lucilu.rxdynamicsearch.utils.ViewUtils;
 import com.lucilu.rxdynamicsearch.viewmodel.CountryItemViewModel;
 
@@ -25,9 +24,8 @@ public final class CountryViewHolder extends BindingViewHolder<CountryItemViewMo
     @NonNull
     private final TextView mCapital;
 
-    public CountryViewHolder(@NonNull final View itemView,
-                             @NonNull final LifecycleService lifecycleService) {
-        super(itemView, lifecycleService);
+    public CountryViewHolder(@NonNull final View itemView) {
+        super(itemView);
 
         mCountryName = ViewUtils.find(itemView, R.id.item_textView_country);
         mCapital = ViewUtils.find(itemView, R.id.item_textView_capital);

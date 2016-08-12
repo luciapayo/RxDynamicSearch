@@ -17,12 +17,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/data_counter"/>
 
-        <TextView
-                android:id="@+id/tv_subscriptions_lifecycle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lifecycle_counter"/>
-
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

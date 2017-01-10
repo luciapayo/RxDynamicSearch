@@ -8,9 +8,9 @@ android:
   - tools
 
   #Build tools version used by the project
-  - build-tools-23.0.3
+  - build-tools-25.0.2
 
   #SDK version used to compile the project
-  - android-23
+  - android-25
 script:
 - "./gradlew test"

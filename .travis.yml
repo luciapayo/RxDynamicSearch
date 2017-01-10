@@ -1,6 +1,5 @@
 language: android
-jdk:
-- oraclejdk8
+jdk: oraclejdk8
 android:
   components:
   #Use latest revision of Android SDK tools
@@ -15,5 +14,13 @@ android:
 
   - extra-google-m2repository
   - extra-android-m2repository
+before_cache:
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+  - $HOME/.gradle/caches/
+  - $HOME/.gradle/wrapper/
+  - $HOME/.android/build-cache
 script:
 - "./gradlew test"

@@ -10,7 +10,7 @@ import timber.log.Timber;
  * Provides the instrumentation objects for release dependency injection.
  */
 @Module
-public class InstumentationModule {
+public class InstrumentationModule {
 
     @Provides
     @Singleton

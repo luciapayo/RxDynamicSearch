@@ -318,11 +318,6 @@ public class AdapterInteractorTest {
         assertThat(mAdapter.getItemPosition("10")).isEqualTo(NONE);
     }
 
-    @Test
-    public void fail() {
-        assertThat(false).isTrue();
-    }
-
     private static List<String> rangeStringCollection(final int from, final int to) {
         return Observable.range(from, to)
                          .map(Object::toString)

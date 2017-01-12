@@ -316,6 +316,7 @@ public class AdapterInteractorTest {
         mAdapter.append(stringCollection);
 
         assertThat(mAdapter.getItemPosition("10")).isEqualTo(NONE);
+        assertThat(true).isTrue();
     }
 
     private static List<String> rangeStringCollection(final int from, final int to) {

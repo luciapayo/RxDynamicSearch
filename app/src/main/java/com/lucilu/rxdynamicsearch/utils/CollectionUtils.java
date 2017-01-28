@@ -8,7 +8,7 @@ import java.util.Iterator;
 public final class CollectionUtils {
 
     /**
-     * Verifies if the content of the collections is the same.
+     * Verifies if the content of the collections are the same.
      *
      * @param first  Collection
      * @param second Collection

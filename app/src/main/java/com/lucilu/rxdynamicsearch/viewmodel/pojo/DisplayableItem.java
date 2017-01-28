@@ -5,7 +5,7 @@ import com.google.auto.value.AutoValue;
 import android.support.annotation.NonNull;
 
 @AutoValue
-public abstract class ListItem<T> {
+public abstract class DisplayableItem<T> {
 
     public abstract int type();
 
@@ -23,11 +23,11 @@ public abstract class ListItem<T> {
         public abstract Builder<T> model(@NonNull T model);
 
         @NonNull
-        public abstract ListItem<T> build();
+        public abstract DisplayableItem<T> build();
     }
 
     @NonNull
     public static <T> Builder<T> builder() {
-        return new AutoValue_ListItem.Builder<>();
+        return new AutoValue_DisplayableItem.Builder<>();
     }
 }

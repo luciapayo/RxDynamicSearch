@@ -5,7 +5,7 @@ import com.lucilu.rxdynamicsearch.activities.MainActivity;
 import com.lucilu.rxdynamicsearch.dagger.component.CountryListComponent;
 import com.lucilu.rxdynamicsearch.dagger.module.SearchFragmentModule;
 import com.lucilu.rxdynamicsearch.fragments.base.BaseFragment;
-import com.lucilu.rxdynamicsearch.ui.adapter.ListAdapter;
+import com.lucilu.rxdynamicsearch.ui.adapter.RecyclerViewAdapter;
 import com.lucilu.rxdynamicsearch.utils.ViewUtils;
 import com.lucilu.rxdynamicsearch.viewmodel.CountryListViewModel;
 import com.lucilu.rxdynamicsearch.viewmodel.base.ViewModel;
@@ -44,7 +44,7 @@ public final class CountryListFragment extends BaseFragment {
 
     @Nullable
     @Inject
-    ListAdapter mAdapter;
+    RecyclerViewAdapter mAdapter;
 
     @Nullable
     @Override

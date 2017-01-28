@@ -5,7 +5,7 @@ import com.lucilu.rxdynamicsearch.data.pojo.Ad;
 import com.lucilu.rxdynamicsearch.data.pojo.Country;
 import com.lucilu.rxdynamicsearch.repository.base.ICountryRepository;
 import com.lucilu.rxdynamicsearch.viewmodel.base.ViewModel;
-import com.lucilu.rxdynamicsearch.viewmodel.pojo.ListItem;
+import com.lucilu.rxdynamicsearch.viewmodel.pojo.DisplayableItem;
 
 import android.support.annotation.NonNull;
 
@@ -31,8 +31,8 @@ public final class CountryListViewModel extends ViewModel {
     private final ICountryRepository mCountryRepository;
 
     @Inject
-    public CountryListViewModel(@NonNull final Observable<CharSequence> queryStream,
-                                @NonNull final ICountryRepository countryRepository) {
+    CountryListViewModel(@NonNull final Observable<CharSequence> queryStream,
+                         @NonNull final ICountryRepository countryRepository) {
         mQueryStream = get(queryStream);
         mCountryRepository = get(countryRepository);
     }
@@ -43,7 +43,7 @@ public final class CountryListViewModel extends ViewModel {
     }
 
     @NonNull
-    public Observable<List<ListItem>> getListItemStream() {
+    public Observable<List<DisplayableItem>> getListItemStream() {
         return mCountryRepository.getAllCountries()
                                  .compose(choose())
                                  .switchMap(this::transform)
@@ -51,21 +51,22 @@ public final class CountryListViewModel extends ViewModel {
     }
 
     @NonNull
-    private Observable<List<ListItem>> transform(@NonNull final List<Country> countries) {
+    private Observable<List<DisplayableItem>> transform(@NonNull final List<Country> countries) {
         return Observable.from(countries)
                          .map(country -> toListItem(country, COUNTRY))
                          .toList();
     }
 
-    private List<ListItem> insertAds(@NonNull final List<ListItem> countryListItems) {
-        countryListItems.add(10, toListItem(Ad.createAd("Put your ad here"), AD));
-        countryListItems.add(20, toListItem(Ad.createAd("Put your ad here"), AD));
-        countryListItems.add(30, toListItem(Ad.createAd("Put your ad here"), AD));
+    private List<DisplayableItem> insertAds(
+            @NonNull final List<DisplayableItem> countryDisplayableItems) {
+        countryDisplayableItems.add(10, toListItem(Ad.createAd("Put your ad here"), AD));
+        countryDisplayableItems.add(20, toListItem(Ad.createAd("Put your ad here"), AD));
+        countryDisplayableItems.add(30, toListItem(Ad.createAd("Put your ad here"), AD));
 
-        return countryListItems;
+        return countryDisplayableItems;
     }
 
-    private static ListItem toListItem(@NonNull final Object model, final int type) {
-        return ListItem.builder().type(type).model(model).build();
+    private static DisplayableItem toListItem(@NonNull final Object model, final int type) {
+        return DisplayableItem.builder().type(type).model(model).build();
     }
 }

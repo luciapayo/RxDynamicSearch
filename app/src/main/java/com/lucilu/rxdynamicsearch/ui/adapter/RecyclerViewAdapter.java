@@ -4,7 +4,7 @@ import com.lucilu.rxdynamicsearch.dagger.Scopes.FragmentScope;
 import com.lucilu.rxdynamicsearch.ui.adapter.base.IAdapterInteractor;
 import com.lucilu.rxdynamicsearch.ui.adapter.base.IViewHolderBinder;
 import com.lucilu.rxdynamicsearch.ui.adapter.base.IViewHolderFactory;
-import com.lucilu.rxdynamicsearch.viewmodel.pojo.ListItem;
+import com.lucilu.rxdynamicsearch.viewmodel.pojo.DisplayableItem;
 
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
@@ -23,24 +23,25 @@ import static com.lucilu.rxdynamicsearch.Constants.ListItem.INVALID_VIEW_TYPE;
 import static polanski.option.Option.ofObj;
 
 /**
- * Implementation of {@link android.support.v7.widget.RecyclerView.Adapter} for {@link ListItem}.
+ * Implementation of {@link android.support.v7.widget.RecyclerView.Adapter} for {@link
+ * DisplayableItem}.
  */
 @FragmentScope
-public final class ListAdapter extends Adapter {
+public final class RecyclerViewAdapter extends Adapter {
 
     @NonNull
-    private final IAdapterInteractor<ListItem> mInteractor;
+    private final IAdapterInteractor<DisplayableItem> mInteractor;
 
     @NonNull
     private final IViewHolderFactory mInstantiator;
 
     @NonNull
-    private final IViewHolderBinder<ListItem> mBinder;
+    private final IViewHolderBinder<DisplayableItem> mBinder;
 
     @Inject
-    public ListAdapter(@NonNull final IAdapterInteractor<ListItem> interactor,
-                       @NonNull final IViewHolderFactory instantiator,
-                       @NonNull final IViewHolderBinder<ListItem> binder) {
+    RecyclerViewAdapter(@NonNull final IAdapterInteractor<DisplayableItem> interactor,
+                        @NonNull final IViewHolderFactory instantiator,
+                        @NonNull final IViewHolderBinder<DisplayableItem> binder) {
         mInteractor = interactor;
         mInstantiator = instantiator;
         mBinder = binder;
@@ -70,7 +71,7 @@ public final class ListAdapter extends Adapter {
     @Override
     public int getItemViewType(final int position) {
         return mInteractor.getItem(position)
-                          .match(ListItem::type,
+                          .match(DisplayableItem::type,
                                  () -> INVALID_VIEW_TYPE);
     }
 
@@ -79,7 +80,7 @@ public final class ListAdapter extends Adapter {
      *
      * @param items collection to update the previous values
      */
-    public void update(@NonNull final Collection<ListItem> items) {
+    public void update(@NonNull final Collection<DisplayableItem> items) {
         applyChanges(() -> mInteractor.update(items));
     }
 
@@ -88,7 +89,7 @@ public final class ListAdapter extends Adapter {
      *
      * @param items collection to append
      */
-    public void append(@NonNull final Collection<ListItem> items) {
+    public void append(@NonNull final Collection<DisplayableItem> items) {
         applyChanges(() -> mInteractor.append(items));
     }
 
@@ -106,7 +107,7 @@ public final class ListAdapter extends Adapter {
      *
      * @param item to be removed
      */
-    public void remove(@NonNull final ListItem item) {
+    public void remove(@NonNull final DisplayableItem item) {
         applyChanges(() -> mInteractor.remove(item));
     }
 
@@ -115,28 +116,29 @@ public final class ListAdapter extends Adapter {
      *
      * @param items to be removed
      */
-    public void removeAll(@NonNull final Collection<ListItem> items) {
+    public void removeAll(@NonNull final Collection<DisplayableItem> items) {
         applyChanges(() -> mInteractor.removeAll(items));
     }
 
     /**
-     * Returns an option of the {@link ListItem} at the position.
+     * Returns an option of the {@link DisplayableItem} at the position.
      *
      * @param position of the item
-     * @return option of the {@link ListItem} at the position or {@link Option#NONE} if wasn't found
+     * @return option of the {@link DisplayableItem} at the position or {@link Option#NONE} if
+     * wasn't found
      */
     @NonNull
-    public Option<ListItem> getItem(final int position) {
+    public Option<DisplayableItem> getItem(final int position) {
         return mInteractor.getItem(position);
     }
 
     /**
-     * Returns an option of the index where the {@link ListItem} exists.
+     * Returns an option of the index where the {@link DisplayableItem} exists.
      *
      * @param item of item to be found
      * @return option of index of item or {@link Option#NONE} if wasn't found
      */
-    public Option<Integer> getItemPosition(@NonNull final ListItem item) {
+    public Option<Integer> getItemPosition(@NonNull final DisplayableItem item) {
         return mInteractor.getItemPosition(item);
     }
 

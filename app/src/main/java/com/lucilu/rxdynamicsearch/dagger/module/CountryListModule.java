@@ -7,7 +7,6 @@ import com.lucilu.rxdynamicsearch.ui.adapter.CountryListViewHolderFactory;
 import com.lucilu.rxdynamicsearch.ui.adapter.base.IListItemComparator;
 import com.lucilu.rxdynamicsearch.ui.adapter.base.IViewHolderBinder;
 import com.lucilu.rxdynamicsearch.ui.adapter.base.IViewHolderFactory;
-import com.lucilu.rxdynamicsearch.viewmodel.CountryItemViewModel_Factory;
 import com.lucilu.rxdynamicsearch.viewmodel.pojo.DisplayableItem;
 
 import android.content.Context;
@@ -25,7 +24,7 @@ public final class CountryListModule {
 
     @Provides
     IViewHolderBinder<DisplayableItem> provideViewHolderBinder() {
-        return new CountryListViewHolderBinder(new CountryItemViewModel_Factory());
+        return new CountryListViewHolderBinder();
     }
 
     @Provides

@@ -22,8 +22,6 @@ import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-import static polanski.option.Option.ofObj;
-
 /**
  * Implementation of {@link android.support.v7.widget.RecyclerView.Adapter} for {@link
  * DisplayableItem}.
@@ -59,12 +57,7 @@ public final class RecyclerViewAdapter extends Adapter {
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        mBinder.bind(ofObj(holder), mItems.get(position));
-    }
-
-    @Override
-    public void onViewRecycled(final ViewHolder holder) {
-        mBinder.unbind(ofObj(holder));
+        mBinder.bind(holder, mItems.get(position));
     }
 
     @Override

@@ -106,29 +106,6 @@ public final class RecyclerViewAdapter extends Adapter {
     private DiffUtil.DiffResult calculateDiff(@NonNull final List<DisplayableItem> newItems) {
         Preconditions.assertWorkerThread();
 
-        return DiffUtil.calculateDiff(new DiffUtil.Callback() {
-            @Override
-            public int getOldListSize() {
-                return mItems.size();
-            }
-
-            @Override
-            public int getNewListSize() {
-                return newItems.size();
-            }
-
-            @Override
-            public boolean areItemsTheSame(final int oldItemPosition, final int newItemPosition) {
-                return mComparator.areItemsTheSame(mItems.get(oldItemPosition),
-                                                   newItems.get(newItemPosition));
-            }
-
-            @Override
-            public boolean areContentsTheSame(final int oldItemPosition,
-                                              final int newItemPosition) {
-                return mComparator.areContentsTheSame(mItems.get(oldItemPosition),
-                                                      newItems.get(newItemPosition));
-            }
-        });
+        return DiffUtil.calculateDiff(new DiffUtilCallback(mItems, newItems, mComparator));
     }
 }

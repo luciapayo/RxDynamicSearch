@@ -1,25 +1,27 @@
 package com.lucilu.rxdynamicsearch.ui.adapter;
 
 import com.lucilu.rxdynamicsearch.dagger.Scopes.FragmentScope;
-import com.lucilu.rxdynamicsearch.ui.adapter.base.IAdapterInteractor;
+import com.lucilu.rxdynamicsearch.ui.adapter.base.IListItemComparator;
 import com.lucilu.rxdynamicsearch.ui.adapter.base.IViewHolderBinder;
 import com.lucilu.rxdynamicsearch.ui.adapter.base.IViewHolderFactory;
+import com.lucilu.rxdynamicsearch.utils.Preconditions;
 import com.lucilu.rxdynamicsearch.viewmodel.pojo.DisplayableItem;
 
-import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.ViewGroup;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
-import polanski.option.Option;
-import polanski.option.function.Func0;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
-import static com.lucilu.rxdynamicsearch.Constants.ListItem.INVALID_VIEW_TYPE;
 import static polanski.option.Option.ofObj;
 
 /**
@@ -30,7 +32,10 @@ import static polanski.option.Option.ofObj;
 public final class RecyclerViewAdapter extends Adapter {
 
     @NonNull
-    private final IAdapterInteractor<DisplayableItem> mInteractor;
+    private final List<DisplayableItem> mItems = new ArrayList<>();
+
+    @NonNull
+    private final IListItemComparator mComparator;
 
     @NonNull
     private final IViewHolderFactory mInstantiator;
@@ -39,10 +44,10 @@ public final class RecyclerViewAdapter extends Adapter {
     private final IViewHolderBinder<DisplayableItem> mBinder;
 
     @Inject
-    RecyclerViewAdapter(@NonNull final IAdapterInteractor<DisplayableItem> interactor,
+    RecyclerViewAdapter(@NonNull final IListItemComparator comparator,
                         @NonNull final IViewHolderFactory instantiator,
                         @NonNull final IViewHolderBinder<DisplayableItem> binder) {
-        mInteractor = interactor;
+        mComparator = comparator;
         mInstantiator = instantiator;
         mBinder = binder;
     }
@@ -54,8 +59,7 @@ public final class RecyclerViewAdapter extends Adapter {
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        mInteractor.getItem(position)
-                   .ifSome(item -> mBinder.bind(ofObj(holder), item));
+        mBinder.bind(ofObj(holder), mItems.get(position));
     }
 
     @Override
@@ -65,86 +69,66 @@ public final class RecyclerViewAdapter extends Adapter {
 
     @Override
     public int getItemCount() {
-        return mInteractor.getCount();
+        return mItems.size();
     }
 
     @Override
     public int getItemViewType(final int position) {
-        return mInteractor.getItem(position)
-                          .match(DisplayableItem::type,
-                                 () -> INVALID_VIEW_TYPE);
+        return mItems.get(position).type();
     }
 
     /**
-     * Updates items currently stored in adapter with the new items.
+     * Updates mItems currently stored in adapter with the new mItems.
      *
      * @param items collection to update the previous values
      */
-    public void update(@NonNull final Collection<DisplayableItem> items) {
-        applyChanges(() -> mInteractor.update(items));
+    public void update(@NonNull final List<DisplayableItem> items) {
+        Observable.fromCallable(() -> calculateDiff(items))
+                  .subscribeOn(Schedulers.computation())
+                  .observeOn(AndroidSchedulers.mainThread())
+                  .doOnCompleted(() -> updateItems(items))
+                  .subscribe(this::updateAdapterWithDiffResult);
     }
 
-    /**
-     * Appends new items to currently existing ones.
-     *
-     * @param items collection to append
-     */
-    public void append(@NonNull final Collection<DisplayableItem> items) {
-        applyChanges(() -> mInteractor.append(items));
+    private void updateItems(@NonNull final List<DisplayableItem> items) {
+        Preconditions.assertUiThread();
+
+        mItems.clear();
+        mItems.addAll(items);
     }
 
-    /**
-     * Removes an item at the specified position.
-     *
-     * @param position of the item to be removed
-     */
-    public void remove(@IntRange(from = 0) final int position) {
-        applyChanges(() -> mInteractor.remove(position));
+    private void updateAdapterWithDiffResult(@NonNull final DiffUtil.DiffResult result) {
+        Preconditions.assertUiThread();
+
+        result.dispatchUpdatesTo(this);
     }
 
-    /**
-     * Removes specific item.
-     *
-     * @param item to be removed
-     */
-    public void remove(@NonNull final DisplayableItem item) {
-        applyChanges(() -> mInteractor.remove(item));
-    }
+    private DiffUtil.DiffResult calculateDiff(@NonNull final List<DisplayableItem> newItems) {
+        Preconditions.assertWorkerThread();
 
-    /**
-     * Removes a collection of items.
-     *
-     * @param items to be removed
-     */
-    public void removeAll(@NonNull final Collection<DisplayableItem> items) {
-        applyChanges(() -> mInteractor.removeAll(items));
-    }
+        return DiffUtil.calculateDiff(new DiffUtil.Callback() {
+            @Override
+            public int getOldListSize() {
+                return mItems.size();
+            }
 
-    /**
-     * Returns an option of the {@link DisplayableItem} at the position.
-     *
-     * @param position of the item
-     * @return option of the {@link DisplayableItem} at the position or {@link Option#NONE} if
-     * wasn't found
-     */
-    @NonNull
-    public Option<DisplayableItem> getItem(final int position) {
-        return mInteractor.getItem(position);
-    }
+            @Override
+            public int getNewListSize() {
+                return newItems.size();
+            }
 
-    /**
-     * Returns an option of the index where the {@link DisplayableItem} exists.
-     *
-     * @param item of item to be found
-     * @return option of index of item or {@link Option#NONE} if wasn't found
-     */
-    public Option<Integer> getItemPosition(@NonNull final DisplayableItem item) {
-        return mInteractor.getItemPosition(item);
-    }
+            @Override
+            public boolean areItemsTheSame(final int oldItemPosition, final int newItemPosition) {
+                return mComparator.areItemsTheSame(mItems.get(oldItemPosition),
+                                                   newItems.get(newItemPosition));
+            }
 
-    private void applyChanges(@NonNull final Func0<Boolean> applyFunction) {
-        if (applyFunction.call()) {
-            notifyDataSetChanged();
-        }
+            @Override
+            public boolean areContentsTheSame(final int oldItemPosition,
+                                              final int newItemPosition) {
+                return mComparator.areContentsTheSame(mItems.get(oldItemPosition),
+                                                      newItems.get(newItemPosition));
+            }
+        });
     }
 }

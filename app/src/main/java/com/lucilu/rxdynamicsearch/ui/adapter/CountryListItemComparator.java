@@ -5,13 +5,11 @@ import com.lucilu.rxdynamicsearch.viewmodel.pojo.DisplayableItem;
 
 public final class CountryListItemComparator implements IListItemComparator {
 
-    public boolean areItemsTheSame(final DisplayableItem oldItem,
-                                   final DisplayableItem newItem) {
+    public boolean areItemsTheSame(final DisplayableItem item1, final DisplayableItem item2) {
         return false;
     }
 
-    public boolean areContentsTheSame(final DisplayableItem oldItem,
-                                      final DisplayableItem newItem) {
+    public boolean areContentsTheSame(final DisplayableItem item1, final DisplayableItem item2) {
         return false;
     }
 }

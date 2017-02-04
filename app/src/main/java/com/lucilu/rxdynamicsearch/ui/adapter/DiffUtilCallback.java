@@ -8,7 +8,7 @@ import android.support.v7.util.DiffUtil;
 
 import java.util.List;
 
-public final class DiffUtilCallback extends DiffUtil.Callback {
+final class DiffUtilCallback extends DiffUtil.Callback {
 
     @NonNull
     private final List<DisplayableItem> mOldItems;
@@ -19,10 +19,9 @@ public final class DiffUtilCallback extends DiffUtil.Callback {
     @NonNull
     private final IListItemComparator mComparator;
 
-
-    public DiffUtilCallback(@NonNull final List<DisplayableItem> oldItems,
-                            @NonNull final List<DisplayableItem> newItems,
-                            @NonNull final IListItemComparator comparator) {
+    DiffUtilCallback(@NonNull final List<DisplayableItem> oldItems,
+                     @NonNull final List<DisplayableItem> newItems,
+                     @NonNull final IListItemComparator comparator) {
         mOldItems = oldItems;
         mNewItems = newItems;
         mComparator = comparator;

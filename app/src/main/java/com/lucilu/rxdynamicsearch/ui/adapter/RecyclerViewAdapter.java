@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
 
@@ -40,6 +42,8 @@ public final class RecyclerViewAdapter extends Adapter {
 
     @NonNull
     private final IViewHolderBinder<DisplayableItem> mBinder;
+
+    private Executor mExecutor = Executors.newSingleThreadExecutor();
 
     @Inject
     RecyclerViewAdapter(@NonNull final IListItemComparator comparator,
@@ -77,14 +81,20 @@ public final class RecyclerViewAdapter extends Adapter {
      */
     public void update(@NonNull final List<DisplayableItem> items) {
         Observable.fromCallable(() -> calculateDiff(items))
-                  .subscribeOn(Schedulers.computation())
+                  .doOnNext(__ -> updateItems(items))
+                  .subscribeOn(Schedulers.from(mExecutor))
                   .observeOn(AndroidSchedulers.mainThread())
-                  .doOnCompleted(() -> updateItems(items))
                   .subscribe(this::updateAdapterWithDiffResult);
     }
 
+    private DiffUtil.DiffResult calculateDiff(@NonNull final List<DisplayableItem> newItems) {
+        Preconditions.assertWorkerThread();
+
+        return DiffUtil.calculateDiff(new DiffUtilCallback(mItems, newItems, mComparator));
+    }
+
     private void updateItems(@NonNull final List<DisplayableItem> items) {
-        Preconditions.assertUiThread();
+        Preconditions.assertWorkerThread();
 
         mItems.clear();
         mItems.addAll(items);
@@ -94,11 +104,5 @@ public final class RecyclerViewAdapter extends Adapter {
         Preconditions.assertUiThread();
 
         result.dispatchUpdatesTo(this);
-    }
-
-    private DiffUtil.DiffResult calculateDiff(@NonNull final List<DisplayableItem> newItems) {
-        Preconditions.assertWorkerThread();
-
-        return DiffUtil.calculateDiff(new DiffUtilCallback(mItems, newItems, mComparator));
     }
 }
